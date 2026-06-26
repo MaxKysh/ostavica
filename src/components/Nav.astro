@@ -83,11 +83,10 @@ const links = [
     background: color-mix(in srgb, var(--bg) 82%, transparent);
     backdrop-filter: saturate(140%) blur(12px);
     -webkit-backdrop-filter: saturate(140%) blur(12px);
-    transition: box-shadow 0.25s ease, background-color 0.25s ease;
+    transition: background-color 0.25s ease;
   }
   .header.is-scrolled {
-    background: color-mix(in srgb, var(--bg) 94%, transparent);
-    box-shadow: 0 6px 24px rgba(20, 33, 23, 0.07);
+    background: color-mix(in srgb, var(--bg) 96%, transparent);
   }
   .header-inner {
     display: flex;
@@ -122,31 +121,6 @@ const links = [
     color: var(--green-dark);
   }
 
-  .lang-switch {
-    display: inline-flex;
-    align-items: center;
-    gap: 2px;
-    padding: 3px;
-    background: var(--surface-2);
-    border-radius: 999px;
-  }
-  .lang-link {
-    font-size: 0.78rem;
-    font-weight: 600;
-    letter-spacing: 0.02em;
-    color: var(--muted);
-    padding: 5px 10px;
-    border-radius: 999px;
-    transition: background-color 0.18s ease, color 0.18s ease;
-  }
-  .lang-link:hover {
-    color: var(--ink);
-  }
-  .lang-link.active {
-    background: var(--green);
-    color: #fff;
-  }
-
   .burger {
     display: inline-flex;
     align-items: center;
@@ -156,13 +130,11 @@ const links = [
     border: 0;
     border-radius: 12px;
     background: var(--surface);
-    box-shadow: var(--shadow-soft);
     cursor: pointer;
   }
 
   .mobile-menu {
     background: var(--surface);
-    box-shadow: 0 14px 30px rgba(20, 33, 23, 0.1);
     padding: 12px var(--pad) 24px;
     display: flex;
     flex-direction: column;

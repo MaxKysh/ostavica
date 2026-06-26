@@ -52,7 +52,7 @@ const altFor = (size) =>
             </div>
             <button
               type="button"
-              class:list={['btn', 'btn-block', card.popular ? 'btn-primary' : 'btn-ghost']}
+              class:list={['btn', 'btn-block', card.popular ? 'btn-primary' : 'btn-soft']}
               data-choose-size={i}
             >{t('sizes.cta')}</button>
           </div>
@@ -80,7 +80,7 @@ const altFor = (size) =>
     flex-direction: column;
   }
   .size-card.popular {
-    box-shadow: 0 0 0 2px var(--green), var(--shadow-card);
+    background: var(--green-soft);
   }
   .size-badge {
     position: absolute;

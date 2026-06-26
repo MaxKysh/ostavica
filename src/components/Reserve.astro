@@ -96,7 +96,7 @@ const msg = {
 
 <style>
   .reserve {
-    background: var(--surface-2);
+    background: var(--green-deep);
   }
   .reserve-grid {
     display: grid;
@@ -107,9 +107,10 @@ const msg = {
   .reserve-intro h2 {
     font-size: clamp(1.6rem, 5vw, 2.3rem);
     margin-bottom: 14px;
+    color: #fff;
   }
   .reserve-sub {
-    color: var(--muted);
+    color: #dcebd0;
     font-size: 1.05rem;
     max-width: 40ch;
   }
@@ -132,15 +133,14 @@ const msg = {
     border: 0;
     border-radius: var(--radius-sm);
     background: var(--surface-2);
-    transition: box-shadow 0.18s ease;
+    transition: background-color 0.18s ease;
   }
   input[type='text']::placeholder {
     color: #7d8a7f;
   }
   input[type='text']:focus,
   select:focus {
-    outline: none;
-    box-shadow: 0 0 0 2px var(--green);
+    background: #dde6d4;
   }
   .select-wrap {
     position: relative;

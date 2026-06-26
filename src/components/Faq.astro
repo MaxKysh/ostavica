@@ -44,14 +44,21 @@ const headings = { ru: 'Частые вопросы', sr: 'Česta pitanja', en: 
 
 <style>
   .faq-wrap {
-    max-width: 760px;
+    max-width: 960px;
   }
   .faq-list {
     list-style: none;
     padding: 0;
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: 1fr;
+    align-items: start;
     gap: 10px;
+  }
+  @media (min-width: 760px) {
+    .faq-list {
+      grid-template-columns: 1fr 1fr;
+      column-gap: 14px;
+    }
   }
   .faq-item {
     background: var(--surface);

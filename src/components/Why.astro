@@ -4,8 +4,19 @@ import { useTranslations } from '../i18n/ui.js';
 
 const { lang } = Astro.props;
 const t = useTranslations(lang);
-const items = t('why.items');
-const icons = ['mapPin', 'fence', 'key', 'doorOpen', 'wallet', 'thermometer', 'globe', 'expand'];
+const all = t('why.items');
+
+// The trust bar at the top already covers walkable / heated / monthly / language.
+// Show only the points it does NOT, so nothing is duplicated and it reads as 4,
+// not a wall of 8. Indices are stable across locales (same key order).
+const PICK = [1, 4, 2, 7]; // gated site · flexible payment · your own key · flexible size
+const iconByIndex = {
+  1: 'fence',
+  2: 'key',
+  4: 'wallet',
+  7: 'expand',
+};
+const items = PICK.map((i) => ({ ...all[i], icon: iconByIndex[i] }));
 ---
 <section id="why" class="section why">
   <div class="container">
@@ -16,8 +27,8 @@ const icons = ['mapPin', 'fence', 'key', 'doorOpen', 'wallet', 'thermometer', 'g
 
     <ul class="why-grid">
       {items.map((item, i) => (
-        <li class="why-tile card reveal" style={`transition-delay:${(i % 4) * 60}ms`}>
-          <span class="why-icon"><Icon name={icons[i]} size={20} /></span>
+        <li class="why-tile card reveal" style={`transition-delay:${i * 70}ms`}>
+          <span class="why-icon"><Icon name={item.icon} size={22} /></span>
           <h3 class="why-title">{item.title}</h3>
           <p class="why-text">{item.text}</p>
         </li>
@@ -32,29 +43,29 @@ const icons = ['mapPin', 'fence', 'key', 'doorOpen', 'wallet', 'thermometer', 'g
     padding: 0;
     display: grid;
     grid-template-columns: 1fr;
-    gap: 12px;
+    gap: 14px;
   }
   .why-tile {
-    padding: 20px;
+    padding: 26px 24px;
   }
   .why-icon {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 40px;
-    height: 40px;
-    border-radius: 10px;
-    background: var(--surface-2);
+    width: 46px;
+    height: 46px;
+    border-radius: 12px;
+    background: var(--green-soft);
     color: var(--green-dark);
-    margin-bottom: 12px;
+    margin-bottom: 22px;
   }
   .why-title {
-    font-size: 1.02rem;
-    margin-bottom: 6px;
+    font-size: 1.08rem;
+    margin-bottom: 11px;
   }
   .why-text {
     color: var(--muted);
-    font-size: 0.92rem;
+    font-size: 0.95rem;
   }
 
   @media (min-width: 560px) {

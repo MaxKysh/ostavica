@@ -128,20 +128,19 @@ const msg = {
   input[type='text'],
   select {
     width: 100%;
-    padding: 13px 14px;
-    border: 1px solid var(--line);
+    padding: 14px 14px;
+    border: 0;
     border-radius: var(--radius-sm);
-    background: var(--bg);
-    transition: border-color 0.18s ease, box-shadow 0.18s ease;
+    background: var(--surface-2);
+    transition: box-shadow 0.18s ease;
   }
   input[type='text']::placeholder {
-    color: #9aa79c;
+    color: #7d8a7f;
   }
   input[type='text']:focus,
   select:focus {
     outline: none;
-    border-color: var(--green);
-    box-shadow: 0 0 0 3px rgba(111, 190, 63, 0.18);
+    box-shadow: 0 0 0 2px var(--green);
   }
   .select-wrap {
     position: relative;

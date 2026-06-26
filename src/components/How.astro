@@ -20,7 +20,6 @@ const headings = { ru: 'Как это работает', sr: 'Kako funkcioniše'
             <h3 class="how-title">{item.title}</h3>
             <p class="how-text">{item.text}</p>
           </div>
-          {i < items.length - 1 && <span class="how-line" aria-hidden="true"></span>}
         </li>
       ))}
     </ol>
@@ -37,7 +36,6 @@ const headings = { ru: 'Как это работает', sr: 'Kako funkcioniše'
     gap: 28px;
   }
   .how-step {
-    position: relative;
     display: flex;
     gap: 18px;
     align-items: flex-start;
@@ -65,15 +63,6 @@ const headings = { ru: 'Как это работает', sr: 'Kako funkcioniše'
     color: var(--muted);
     max-width: 30ch;
   }
-  /* connecting line (vertical on mobile) */
-  .how-line {
-    position: absolute;
-    left: 22px;
-    top: 46px;
-    width: 2px;
-    height: calc(100% + 28px - 46px + 28px);
-    background: linear-gradient(var(--line), transparent);
-  }
 
   @media (min-width: 760px) {
     .how-grid {
@@ -82,13 +71,6 @@ const headings = { ru: 'Как это работает', sr: 'Kako funkcioniše'
     }
     .how-step {
       flex-direction: column;
-    }
-    .how-line {
-      left: 46px;
-      top: 22px;
-      width: calc(100% - 46px + 24px);
-      height: 2px;
-      background: linear-gradient(90deg, var(--line), transparent);
     }
   }
 </style>

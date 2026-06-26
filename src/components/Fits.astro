@@ -1,35 +1,38 @@
 ---
 import { Image } from 'astro:assets';
-import Icon from './Icon.astro';
 import { useTranslations } from '../i18n/ui.js';
 import tiresImg from '../images/fits-tires.jpg';
 import boxesImg from '../images/fits-boxes.jpg';
 import bikeImg from '../images/fits-bike-sport.jpg';
+import movingImg from '../images/unit-open-tires-boxes-bike.jpg';
 
 const { lang } = Astro.props;
 const t = useTranslations(lang);
 const items = t('fits.items');
 
+// All four cards are real photos of an open unit, in one consistent style.
+const photos = [tiresImg, boxesImg, bikeImg, movingImg];
+
 const alts = {
   ru: [
-    'Комплект сезонных шин, готовых к хранению',
-    'Картонные коробки с вещами',
-    'Велосипед и спортивный инвентарь',
+    'Открытая ячейка с комплектом сезонных шин',
+    'Открытая ячейка со штабелем картонных коробок',
+    'Открытая ячейка с велосипедом и лыжами',
+    'Открытая ячейка с вещами при переезде',
   ],
   sr: [
-    'Komplet sezonskih guma spremnih za odlaganje',
-    'Kartonske kutije sa stvarima',
-    'Bicikl i sportska oprema',
+    'Otvoren boks sa kompletom sezonskih guma',
+    'Otvoren boks sa naslaganim kartonskim kutijama',
+    'Otvoren boks sa biciklom i skijama',
+    'Otvoren boks sa stvarima pri selidbi',
   ],
   en: [
-    'A set of seasonal tires ready for storage',
-    'Cardboard boxes with belongings',
-    'A bicycle and sports gear',
+    'An open unit with a set of seasonal tires',
+    'An open unit with stacked cardboard boxes',
+    'An open unit with a bicycle and skis',
+    'An open unit with belongings during a move',
   ],
 }[lang];
-
-// First three items get a photo; the fourth (moving/furniture) is an icon tile.
-const photos = [tiresImg, boxesImg, bikeImg];
 ---
 <section class="section fits">
   <div class="container">
@@ -42,20 +45,16 @@ const photos = [tiresImg, boxesImg, bikeImg];
       {items.map((item, i) => (
         <li class="fits-card card reveal" style={`transition-delay:${i * 70}ms`}>
           <div class="fits-media">
-            {i < 3 ? (
-              <Image
-                src={photos[i]}
-                alt={alts[i]}
-                widths={[260, 380, 520]}
-                sizes="(min-width: 880px) 250px, (min-width: 560px) 45vw, 90vw"
-                format="webp"
-                quality={75}
-                loading="lazy"
-                class="fits-img"
-              />
-            ) : (
-              <span class="fits-icon" aria-hidden="true"><Icon name="sofa" size={40} /></span>
-            )}
+            <Image
+              src={photos[i]}
+              alt={alts[i]}
+              widths={[260, 380, 520]}
+              sizes="(min-width: 880px) 250px, (min-width: 560px) 45vw, 90vw"
+              format="webp"
+              quality={75}
+              loading="lazy"
+              class="fits-img"
+            />
           </div>
           <div class="fits-body">
             <h3 class="fits-title">{item.title}</h3>
@@ -81,19 +80,16 @@ const photos = [tiresImg, boxesImg, bikeImg];
     flex-direction: column;
   }
   .fits-media {
-    aspect-ratio: 4 / 3;
+    aspect-ratio: 4 / 5;
     background: #fff;
-    display: grid;
-    place-items: center;
-    border-bottom: 1px solid var(--line);
+    overflow: hidden;
   }
   .fits-img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-  }
-  .fits-icon {
-    color: var(--green);
+    /* keep the open doorway + contents in frame, not just the white door */
+    object-position: 38% 60%;
   }
   .fits-body {
     padding: 16px 18px 20px;
@@ -115,6 +111,9 @@ const photos = [tiresImg, boxesImg, bikeImg];
   @media (min-width: 880px) {
     .fits-grid {
       grid-template-columns: repeat(4, 1fr);
+    }
+    .fits-media {
+      aspect-ratio: 3 / 4;
     }
   }
 </style>

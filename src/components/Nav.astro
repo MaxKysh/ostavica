@@ -80,15 +80,14 @@ const links = [
     position: sticky;
     top: 0;
     z-index: 50;
-    background: color-mix(in srgb, var(--bg) 72%, transparent);
-    backdrop-filter: saturate(140%) blur(10px);
-    -webkit-backdrop-filter: saturate(140%) blur(10px);
-    border-bottom: 1px solid transparent;
-    transition: border-color 0.25s ease, background-color 0.25s ease;
+    background: color-mix(in srgb, var(--bg) 82%, transparent);
+    backdrop-filter: saturate(140%) blur(12px);
+    -webkit-backdrop-filter: saturate(140%) blur(12px);
+    transition: box-shadow 0.25s ease, background-color 0.25s ease;
   }
   .header.is-scrolled {
-    background: color-mix(in srgb, var(--bg) 88%, transparent);
-    border-bottom-color: var(--line);
+    background: color-mix(in srgb, var(--bg) 94%, transparent);
+    box-shadow: 0 6px 24px rgba(20, 33, 23, 0.07);
   }
   .header-inner {
     display: flex;
@@ -129,7 +128,6 @@ const links = [
     gap: 2px;
     padding: 3px;
     background: var(--surface-2);
-    border: 1px solid var(--line);
     border-radius: 999px;
   }
   .lang-link {
@@ -155,19 +153,20 @@ const links = [
     justify-content: center;
     width: 42px;
     height: 42px;
-    border: 1px solid var(--line);
+    border: 0;
     border-radius: 12px;
     background: var(--surface);
+    box-shadow: var(--shadow-soft);
     cursor: pointer;
   }
 
   .mobile-menu {
-    border-top: 1px solid var(--line);
-    background: var(--bg);
-    padding: 16px var(--pad) 24px;
+    background: var(--surface);
+    box-shadow: 0 14px 30px rgba(20, 33, 23, 0.1);
+    padding: 12px var(--pad) 24px;
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 14px;
   }
   .mobile-menu[hidden] {
     display: none;
@@ -180,10 +179,9 @@ const links = [
   }
   .mobile-links a {
     display: block;
-    padding: 14px 4px;
+    padding: 13px 4px;
     font-size: 1.05rem;
     font-weight: 500;
-    border-bottom: 1px solid var(--line);
   }
   .mobile-lang {
     align-self: flex-start;

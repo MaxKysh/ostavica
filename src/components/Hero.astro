@@ -39,7 +39,7 @@ const heroAlt = {
         src={heroImg}
         alt={heroAlt}
         widths={[480, 720, 1000, 1200]}
-        sizes="(min-width: 880px) 540px, 100vw"
+        sizes="(min-width: 880px) 580px, 100vw"
         loading="eager"
         fetchpriority="high"
         format="webp"
@@ -67,20 +67,19 @@ const heroAlt = {
     letter-spacing: 0.04em;
     color: var(--green-dark);
     background: var(--surface-2);
-    border: 1px solid var(--line);
     padding: 7px 14px;
     border-radius: 999px;
     margin-bottom: 20px;
   }
   .hero-h1 {
-    font-size: clamp(2.1rem, 7.4vw, 3.6rem);
-    margin-bottom: 18px;
-    max-width: 14ch;
+    font-size: clamp(1.7rem, 3.9vw, 2.5rem);
+    margin-bottom: 16px;
+    max-width: 24ch;
   }
   .hero-sub {
-    font-size: clamp(1.02rem, 2.6vw, 1.18rem);
-    color: var(--muted);
-    max-width: 40ch;
+    font-size: clamp(1.02rem, 2.4vw, 1.15rem);
+    color: var(--ink);
+    max-width: 42ch;
     margin-bottom: 22px;
   }
   .hero-pin {
@@ -112,9 +111,9 @@ const heroAlt = {
     flex: none;
   }
   .hero-media {
+    order: -1; /* photo above the text on mobile */
     border-radius: var(--radius-lg);
     overflow: hidden;
-    border: 1px solid var(--line);
     box-shadow: var(--shadow-card);
   }
   .hero-img {
@@ -125,11 +124,18 @@ const heroAlt = {
   }
 
   @media (min-width: 880px) {
+    .hero {
+      padding-top: clamp(40px, 6vw, 64px);
+    }
     .hero-grid {
-      grid-template-columns: 1.05fr 0.95fr;
+      grid-template-columns: 0.92fr 1.08fr; /* image column is the larger one */
+      gap: clamp(36px, 5vw, 64px);
+    }
+    .hero-media {
+      order: 0; /* back to the right on desktop */
     }
     .hero-img {
-      aspect-ratio: 5 / 4;
+      aspect-ratio: 4 / 3;
     }
   }
 </style>

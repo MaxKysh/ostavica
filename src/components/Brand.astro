@@ -1,33 +1,30 @@
 ---
-/** Ostavica logo lockup: warehouse+box mark + wordmark. Inherits currentColor. */
-const { size = 26, withText = true, class: className = '' } = Astro.props;
+import { Image } from 'astro:assets';
+import logo from '../images/logo-mark.png';
+
+/** Ostavica logo lockup — the original brand wordmark (transparent background). */
+const { height = 30, class: className = '' } = Astro.props;
 ---
 <span class={`brand ${className}`} aria-hidden="true">
-  <svg width={size} height={size} viewBox="0 0 48 48" fill="none" class="brand-mark">
-    <path d="M5 44V20.5L24 6l19 14.5V44" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/>
-    <path d="M11 22.5h9v9h-9z" stroke="currentColor" stroke-width="2.6" stroke-linejoin="round"/>
-    <path d="M11 25.5h9M11 28.5h9" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
-    <path d="M24 30l7 4v8l-7 4-7-4v-8l7-4z" stroke="currentColor" stroke-width="2.6" stroke-linejoin="round"/>
-    <path d="M17 34l7 4 7-4M24 38v8" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
-  </svg>
-  {withText && <span class="brand-word">Ostavica</span>}
+  <Image
+    src={logo}
+    alt="Ostavica"
+    widths={[180, 280, 400]}
+    sizes="200px"
+    format="webp"
+    quality={90}
+    loading="eager"
+    class="brand-logo"
+    style={`height:${height}px`}
+  />
 </span>
 
 <style>
   .brand {
     display: inline-flex;
     align-items: center;
-    gap: 9px;
-    color: var(--green);
   }
-  .brand-mark {
-    flex: none;
-  }
-  .brand-word {
-    font-family: var(--font-head);
-    font-weight: 700;
-    font-size: 1.32rem;
-    letter-spacing: -0.02em;
-    color: var(--ink);
+  .brand-logo {
+    width: auto;
   }
 </style>

@@ -42,6 +42,7 @@ edit the matching key in all three files. Components read them via `useTranslati
 | **Form fields / options** | `reserve.form` in `src/i18n/*.json` |
 | **Production domain** (canonical / hreflang) | `SITE` in `astro.config.mjs` |
 | **Images** | `src/images/` — referenced by filename in the section components |
+| **Logo** | `src/images/logo-mark.png` (transparent, brand-green). Generated from the original `logo.jpg`; to regenerate after a logo change, recreate a transparent PNG from the source |
 | **Colors / type / spacing** | tokens at the top of `src/styles/global.css` |
 | **Founder photo** | `src/images/person.jpg` (swap the file, keep the name) |
 

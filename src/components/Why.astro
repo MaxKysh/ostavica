@@ -1,0 +1,70 @@
+---
+import Icon from './Icon.astro';
+import { useTranslations } from '../i18n/ui.js';
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const items = t('why.items');
+const icons = ['mapPin', 'fence', 'key', 'doorOpen', 'wallet', 'thermometer', 'globe', 'expand'];
+---
+<section id="why" class="section why">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="kicker">{t('why.kicker')}</span>
+      <h2>{t('why.h2')}</h2>
+    </div>
+
+    <ul class="why-grid">
+      {items.map((item, i) => (
+        <li class="why-tile card reveal" style={`transition-delay:${(i % 4) * 60}ms`}>
+          <span class="why-icon"><Icon name={icons[i]} size={20} /></span>
+          <h3 class="why-title">{item.title}</h3>
+          <p class="why-text">{item.text}</p>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .why-grid {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .why-tile {
+    padding: 20px;
+  }
+  .why-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background: var(--surface-2);
+    color: var(--green-dark);
+    margin-bottom: 12px;
+  }
+  .why-title {
+    font-size: 1.02rem;
+    margin-bottom: 6px;
+  }
+  .why-text {
+    color: var(--muted);
+    font-size: 0.92rem;
+  }
+
+  @media (min-width: 560px) {
+    .why-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media (min-width: 880px) {
+    .why-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+</style>

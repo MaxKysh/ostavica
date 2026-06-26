@@ -1,0 +1,135 @@
+---
+import { Image } from 'astro:assets';
+import Icon from './Icon.astro';
+import { useTranslations } from '../i18n/ui.js';
+import heroImg from '../images/hero-corridor.jpg';
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const heroAlt = {
+  ru: 'Светлый коридор мини-склада Ostavica с белыми ячейками и зелёными номерами дверей',
+  sr: 'Svetao hodnik mini skladišta Ostavica sa belim boksovima i zelenim brojevima na vratima',
+  en: 'Bright corridor of the Ostavica storage facility with white units and green door numbers',
+}[lang];
+---
+<section class="hero">
+  <div class="container hero-grid">
+    <div class="hero-copy reveal">
+      <p class="hero-eyebrow">{t('hero.eyebrow')}</p>
+      <h1 class="hero-h1">{t('hero.h1')}</h1>
+      <p class="hero-sub">{t('hero.sub')}</p>
+
+      <p class="hero-pin">{t('hero.pricePin')}</p>
+
+      <div class="hero-cta">
+        <a href="#reserve" class="btn btn-primary">
+          {t('hero.ctaPrimary')}<Icon name="arrowRight" size={18} />
+        </a>
+        <a href="#sizes" class="btn btn-ghost">{t('hero.ctaSecondary')}</a>
+      </div>
+
+      <p class="hero-earlybird">
+        <span class="dot" aria-hidden="true"></span>{t('hero.earlybird')}
+      </p>
+    </div>
+
+    <div class="hero-media reveal">
+      <Image
+        src={heroImg}
+        alt={heroAlt}
+        widths={[480, 720, 1000, 1200]}
+        sizes="(min-width: 880px) 540px, 100vw"
+        loading="eager"
+        fetchpriority="high"
+        format="webp"
+        quality={75}
+        class="hero-img"
+      />
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    padding-top: clamp(28px, 6vw, 56px);
+    padding-bottom: var(--section-y);
+  }
+  .hero-grid {
+    display: grid;
+    gap: clamp(28px, 5vw, 48px);
+    align-items: center;
+  }
+  .hero-eyebrow {
+    display: inline-block;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: var(--green-dark);
+    background: var(--surface-2);
+    border: 1px solid var(--line);
+    padding: 7px 14px;
+    border-radius: 999px;
+    margin-bottom: 20px;
+  }
+  .hero-h1 {
+    font-size: clamp(2.1rem, 7.4vw, 3.6rem);
+    margin-bottom: 18px;
+    max-width: 14ch;
+  }
+  .hero-sub {
+    font-size: clamp(1.02rem, 2.6vw, 1.18rem);
+    color: var(--muted);
+    max-width: 40ch;
+    margin-bottom: 22px;
+  }
+  .hero-pin {
+    display: inline-block;
+    font-weight: 600;
+    color: var(--ink);
+    border-left: 3px solid var(--green);
+    padding-left: 12px;
+    margin-bottom: 26px;
+  }
+  .hero-cta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 18px;
+  }
+  .hero-earlybird {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    font-size: 0.92rem;
+    color: var(--muted);
+  }
+  .hero-earlybird .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--green);
+    flex: none;
+  }
+  .hero-media {
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow-card);
+  }
+  .hero-img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+  }
+
+  @media (min-width: 880px) {
+    .hero-grid {
+      grid-template-columns: 1.05fr 0.95fr;
+    }
+    .hero-img {
+      aspect-ratio: 5 / 4;
+    }
+  }
+</style>

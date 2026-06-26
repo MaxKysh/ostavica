@@ -1,0 +1,120 @@
+---
+import { Image } from 'astro:assets';
+import Icon from './Icon.astro';
+import { useTranslations } from '../i18n/ui.js';
+import tiresImg from '../images/fits-tires.jpg';
+import boxesImg from '../images/fits-boxes.jpg';
+import bikeImg from '../images/fits-bike-sport.jpg';
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const items = t('fits.items');
+
+const alts = {
+  ru: [
+    'Комплект сезонных шин, готовых к хранению',
+    'Картонные коробки с вещами',
+    'Велосипед и спортивный инвентарь',
+  ],
+  sr: [
+    'Komplet sezonskih guma spremnih za odlaganje',
+    'Kartonske kutije sa stvarima',
+    'Bicikl i sportska oprema',
+  ],
+  en: [
+    'A set of seasonal tires ready for storage',
+    'Cardboard boxes with belongings',
+    'A bicycle and sports gear',
+  ],
+}[lang];
+
+// First three items get a photo; the fourth (moving/furniture) is an icon tile.
+const photos = [tiresImg, boxesImg, bikeImg];
+---
+<section class="section fits">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="kicker">{t('fits.kicker')}</span>
+      <h2>{t('fits.h2')}</h2>
+    </div>
+
+    <ul class="fits-grid">
+      {items.map((item, i) => (
+        <li class="fits-card card reveal" style={`transition-delay:${i * 70}ms`}>
+          <div class="fits-media">
+            {i < 3 ? (
+              <Image
+                src={photos[i]}
+                alt={alts[i]}
+                widths={[260, 380, 520]}
+                sizes="(min-width: 880px) 250px, (min-width: 560px) 45vw, 90vw"
+                format="webp"
+                quality={75}
+                loading="lazy"
+                class="fits-img"
+              />
+            ) : (
+              <span class="fits-icon" aria-hidden="true"><Icon name="sofa" size={40} /></span>
+            )}
+          </div>
+          <div class="fits-body">
+            <h3 class="fits-title">{item.title}</h3>
+            <p class="fits-text">{item.text}</p>
+          </div>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .fits-grid {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+  .fits-card {
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  .fits-media {
+    aspect-ratio: 4 / 3;
+    background: #fff;
+    display: grid;
+    place-items: center;
+    border-bottom: 1px solid var(--line);
+  }
+  .fits-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .fits-icon {
+    color: var(--green);
+  }
+  .fits-body {
+    padding: 16px 18px 20px;
+  }
+  .fits-title {
+    font-size: 1.05rem;
+    margin-bottom: 5px;
+  }
+  .fits-text {
+    color: var(--muted);
+    font-size: 0.92rem;
+  }
+
+  @media (min-width: 560px) {
+    .fits-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media (min-width: 880px) {
+    .fits-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+</style>

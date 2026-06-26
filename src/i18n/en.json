@@ -1,0 +1,217 @@
+{
+  "meta": {
+    "lang": "en",
+    "title": "Ostavica — self-storage in Podbara, Novi Sad",
+    "description": "Small, secure storage units in central Novi Sad. Heated, dry, monthly terms. From €45/mo."
+  },
+  "nav": {
+    "sizes": "Sizes",
+    "how": "How it works",
+    "reserve": "Reserve",
+    "cta": "Reserve a unit"
+  },
+  "hero": {
+    "eyebrow": "Now opening in Podbara · Novi Sad",
+    "h1": "Your storage room — a short walk from home",
+    "sub": "Small, secure units in central Novi Sad. Tires, boxes, a bike, furniture between moves — heated, dry, locked, access anytime.",
+    "pricePin": "From €45/mo · monthly terms · support in EN / RU / SR",
+    "ctaPrimary": "Reserve a unit",
+    "ctaSecondary": "Sizes & prices",
+    "earlybird": "First customers get 20% off the first month."
+  },
+  "trust": [
+    {
+      "title": "Walk, don’t drive",
+      "text": "In a residential area near the centre."
+    },
+    {
+      "title": "Heated & secure",
+      "text": "A heated unit on a gated site. Your own lock on the door."
+    },
+    {
+      "title": "Monthly, no lock-in",
+      "text": "Rent for as long as you need."
+    },
+    {
+      "title": "Your language",
+      "text": "Contract and support in EN / RU / SR."
+    }
+  ],
+  "fits": {
+    "kicker": "What you can store",
+    "h2": "Free up your balcony, hallway and trunk",
+    "items": [
+      {
+        "title": "Seasonal tires",
+        "text": "A full set of wheels, off the balcony."
+      },
+      {
+        "title": "Boxes & belongings",
+        "text": "Things you can’t toss but can’t fit."
+      },
+      {
+        "title": "Bike & sports gear",
+        "text": "Skis, scooters, off-season kit."
+      },
+      {
+        "title": "Moving & furniture",
+        "text": "A place for stuff between flats."
+      }
+    ]
+  },
+  "how": {
+    "items": [
+      {
+        "n": "1",
+        "title": "Pick a size",
+        "text": "Not sure? Tell us what you’ve got and we’ll suggest one."
+      },
+      {
+        "n": "2",
+        "title": "Reserve online",
+        "text": "Two minutes. No payment to reserve."
+      },
+      {
+        "n": "3",
+        "title": "Move in & lock up",
+        "text": "Bring your things, add your own lock, keep the key."
+      }
+    ]
+  },
+  "sizes": {
+    "kicker": "Sizes & prices",
+    "h2": "Pay only for the space you need",
+    "per": "/mo",
+    "cta": "Choose",
+    "badge": "POPULAR",
+    "cards": [
+      {
+        "size": "1.5 m²",
+        "price": "€45",
+        "desc": "Tires and a few boxes. Size of a narrow wardrobe."
+      },
+      {
+        "size": "2 m²",
+        "price": "€60",
+        "popular": true,
+        "desc": "Boxes, belongings, a bike. Size of a big wardrobe."
+      },
+      {
+        "size": "3.3 m²",
+        "price": "€75",
+        "desc": "A room’s worth of things, furniture when moving."
+      }
+    ],
+    "note": "Cheaper with 3 / 6 / 12-month prepay. Cheaper than renting a bigger flat just for storage. Not sure on size? We’ll help."
+  },
+  "space": {
+    "kicker": "The space",
+    "h2": "Clean, dry and easy to reach"
+  },
+  "why": {
+    "kicker": "Why Ostavica",
+    "h2": "Convenient in ways edge-of-town storage can’t be",
+    "items": [
+      {
+        "title": "Right in your neighbourhood",
+        "text": "Most storage sits on the edge of town. We’re where you live — on foot, no car, street-level, no lift."
+      },
+      {
+        "title": "Gated site",
+        "text": "The unit is locked and stands on a secure, gated site — your things are safe."
+      },
+      {
+        "title": "Only you have the key",
+        "text": "Your own padlock on the unit. We don’t go inside — access is yours alone."
+      },
+      {
+        "title": "Leave anytime",
+        "text": "Moving out? Just take your things. No penalties, no long notice. One month is fine."
+      },
+      {
+        "title": "Pay however suits you",
+        "text": "Cash, transfer or card. No Serbian bank account needed."
+      },
+      {
+        "title": "Heated & dry",
+        "text": "Heated in winter and ventilated — not a damp basement. Your things stay in good shape."
+      },
+      {
+        "title": "Your language",
+        "text": "Contract and help in EN / RU / SR. No Serbian bureaucracy — we’ll guide you."
+      },
+      {
+        "title": "Flexible on size",
+        "text": "Need more room? Move to a bigger unit, hassle-free."
+      }
+    ]
+  },
+  "about": {
+    "kicker": "About us",
+    "h2": "Not a faceless warehouse",
+    "text": "I’m [Name]. I moved to Novi Sad myself and know what it’s like when there’s no room for your things and hauling them to the edge of town isn’t an option. Ostavica isn’t an anonymous hangar — come by, we’ll meet and I’ll show you the space before you book. The contract is yours to keep."
+  },
+  "faq": {
+    "items": [
+      {
+        "q": "Can I come and see it first?",
+        "a": "Yes — visit before booking and we’ll show you the space and the units."
+      },
+      {
+        "q": "How do I pay? Do I need a Serbian account?",
+        "a": "No. Cash, transfer or card — whatever suits you."
+      },
+      {
+        "q": "When can I access my things?",
+        "a": "During working hours; access details confirmed when you book."
+      },
+      {
+        "q": "What if I leave Serbia?",
+        "a": "Just take your things. No penalties — the minimum term is one month."
+      },
+      {
+        "q": "Are my things insured?",
+        "a": "The site is secured; you insure your own goods."
+      },
+      {
+        "q": "How secure is it?",
+        "a": "A heated, enclosed space on a gated site, with an individual lock on every unit."
+      },
+      {
+        "q": "What can’t I store?",
+        "a": "No food, no flammables, nothing illegal."
+      }
+    ]
+  },
+  "reserve": {
+    "h2": "Reserve your unit",
+    "sub": "Opening soon. Leave a request — we’ll message you, answer questions and hold your early-bird discount. No commitment.",
+    "form": {
+      "name": "Name",
+      "namePlaceholder": "Your name",
+      "what": "What you’ll store",
+      "whatOptions": [
+        "Tires / wheels",
+        "Boxes & personal items",
+        "Bike / sports gear",
+        "Furniture / moving",
+        "Other"
+      ],
+      "size": "Which size",
+      "sizeOptions": [
+        "1.5 m² — €45/mo",
+        "2 m² — €60/mo",
+        "3.3 m² — €75/mo",
+        "Not sure yet, advise me"
+      ],
+      "contact": "Contact (WhatsApp / Telegram / email)",
+      "submit": "Send request",
+      "micro": "No commitment."
+    }
+  },
+  "footer": {
+    "location": "Podbara, Novi Sad",
+    "tagline": "Tvoj prostor. Na sigurnom.",
+    "rights": "© 2026 Ostavica"
+  }
+}

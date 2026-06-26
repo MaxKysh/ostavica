@@ -1,0 +1,288 @@
+---
+import Icon from './Icon.astro';
+import { useTranslations } from '../i18n/ui.js';
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const f = t('reserve.form');
+
+// Localized status messages (not part of the content dictionary).
+const msg = {
+  ru: {
+    success: 'Спасибо! Заявка получена — мы свяжемся с вами в ближайшее время.',
+    error: 'Не удалось отправить. Попробуйте ещё раз или напишите нам напрямую.',
+    sending: 'Отправляем…',
+  },
+  sr: {
+    success: 'Hvala! Upit je primljen — javićemo vam se uskoro.',
+    error: 'Slanje nije uspelo. Pokušajte ponovo ili nam pišite direktno.',
+    sending: 'Šaljemo…',
+  },
+  en: {
+    success: 'Thanks! Your request was received — we’ll be in touch shortly.',
+    error: 'Couldn’t send. Please try again or message us directly.',
+    sending: 'Sending…',
+  },
+}[lang];
+---
+<section id="reserve" class="section reserve">
+  <div class="container reserve-grid">
+    <div class="reserve-intro reveal">
+      <h2>{t('reserve.h2')}</h2>
+      <p class="reserve-sub">{t('reserve.sub')}</p>
+    </div>
+
+    <div class="reserve-card card reveal">
+      <form id="reserve-form" class="reserve-form" novalidate>
+        <div class="field">
+          <label for="field-name">{f.name}</label>
+          <input
+            id="field-name"
+            name="name"
+            type="text"
+            required
+            autocomplete="name"
+            placeholder={f.namePlaceholder}
+          />
+        </div>
+
+        <div class="field">
+          <label for="field-what">{f.what}</label>
+          <div class="select-wrap">
+            <select id="field-what" name="what" required>
+              <option value="" disabled selected>{f.what}</option>
+              {f.whatOptions.map((opt) => <option value={opt}>{opt}</option>)}
+            </select>
+            <span class="select-chevron"><Icon name="chevronDown" size={18} /></span>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="field-size">{f.size}</label>
+          <div class="select-wrap">
+            <select id="field-size" name="size" required>
+              <option value="" disabled selected>{f.size}</option>
+              {f.sizeOptions.map((opt, i) => <option value={String(i)}>{opt}</option>)}
+            </select>
+            <span class="select-chevron"><Icon name="chevronDown" size={18} /></span>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="field-contact">{f.contact}</label>
+          <input id="field-contact" name="contact" type="text" required placeholder={f.contact} />
+        </div>
+
+        <!-- Hidden tracking fields (populated from the URL at runtime) -->
+        <input type="hidden" name="locale" value={lang} />
+        <input type="hidden" name="utm_source" />
+        <input type="hidden" name="utm_medium" />
+        <input type="hidden" name="utm_campaign" />
+        <input type="hidden" name="utm_term" />
+        <input type="hidden" name="utm_content" />
+        <input type="hidden" name="referrer" />
+        <!-- Honeypot: bots fill this, humans don't. -->
+        <input type="text" name="company" tabindex="-1" autocomplete="off" class="honeypot" aria-hidden="true" />
+
+        <button type="submit" class="btn btn-primary btn-block reserve-submit">
+          {f.submit}<Icon name="arrowRight" size={18} />
+        </button>
+        <p class="reserve-micro">{f.micro}</p>
+        <p id="reserve-status" class="reserve-status" role="status" aria-live="polite" hidden></p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<style>
+  .reserve {
+    background: var(--surface-2);
+  }
+  .reserve-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: clamp(24px, 5vw, 44px);
+    align-items: start;
+  }
+  .reserve-intro h2 {
+    font-size: clamp(1.6rem, 5vw, 2.3rem);
+    margin-bottom: 14px;
+  }
+  .reserve-sub {
+    color: var(--muted);
+    font-size: 1.05rem;
+    max-width: 40ch;
+  }
+  .reserve-card {
+    padding: clamp(20px, 4vw, 30px);
+  }
+  .field {
+    margin-bottom: 16px;
+  }
+  .field label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 7px;
+  }
+  input[type='text'],
+  select {
+    width: 100%;
+    padding: 13px 14px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    background: var(--bg);
+    transition: border-color 0.18s ease, box-shadow 0.18s ease;
+  }
+  input[type='text']::placeholder {
+    color: #9aa79c;
+  }
+  input[type='text']:focus,
+  select:focus {
+    outline: none;
+    border-color: var(--green);
+    box-shadow: 0 0 0 3px rgba(111, 190, 63, 0.18);
+  }
+  .select-wrap {
+    position: relative;
+  }
+  select {
+    appearance: none;
+    -webkit-appearance: none;
+    padding-right: 40px;
+    cursor: pointer;
+  }
+  .select-chevron {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--muted);
+    pointer-events: none;
+  }
+  .reserve-submit {
+    margin-top: 6px;
+  }
+  .reserve-micro {
+    text-align: center;
+    color: var(--muted);
+    font-size: 0.82rem;
+    margin-top: 12px;
+  }
+  .reserve-status {
+    margin-top: 14px;
+    padding: 12px 14px;
+    border-radius: var(--radius-sm);
+    font-size: 0.92rem;
+  }
+  .reserve-status.ok {
+    background: rgba(111, 190, 63, 0.14);
+    color: var(--green-dark);
+  }
+  .reserve-status.err {
+    background: #fdecea;
+    color: #b3261e;
+  }
+  .honeypot {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+  }
+
+  @media (min-width: 820px) {
+    .reserve-grid {
+      grid-template-columns: 1fr 1.1fr;
+      gap: 56px;
+    }
+    .reserve-intro {
+      position: sticky;
+      top: 96px;
+    }
+  }
+</style>
+
+<script>
+  const form = document.getElementById('reserve-form');
+  const statusEl = document.getElementById('reserve-status');
+
+  // Localized status strings injected from the frontmatter.
+  const MESSAGES = JSON.parse(document.getElementById('reserve-form').dataset.messages || '{}');
+
+  // Pull UTM params + referrer from the URL into the hidden fields (channel attribution).
+  const params = new URLSearchParams(window.location.search);
+  ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'].forEach((key) => {
+    const input = form?.elements.namedItem(key);
+    if (input && params.get(key)) input.value = params.get(key);
+  });
+  const ref = form?.elements.namedItem('referrer');
+  if (ref) ref.value = document.referrer || '';
+
+  // PUBLIC_LEAD_ENDPOINT is inlined at build time (Formspree URL or your own webhook).
+  const ENDPOINT = import.meta.env.PUBLIC_LEAD_ENDPOINT || '';
+
+  function setStatus(text, kind) {
+    if (!statusEl) return;
+    statusEl.textContent = text;
+    statusEl.hidden = false;
+    statusEl.classList.remove('ok', 'err');
+    if (kind) statusEl.classList.add(kind);
+  }
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (!form.reportValidity()) return;
+    // Honeypot tripped → silently pretend success.
+    if (form.elements.namedItem('company')?.value) {
+      setStatus(MESSAGES.success, 'ok');
+      form.reset();
+      return;
+    }
+
+    // Build a readable payload (use the visible option text for the selects).
+    const data = Object.fromEntries(new FormData(form).entries());
+    const sizeSelect = form.elements.namedItem('size');
+    if (sizeSelect && sizeSelect.selectedIndex >= 0) {
+      data.size = sizeSelect.options[sizeSelect.selectedIndex].text;
+    }
+    delete data.company;
+
+    const submitBtn = form.querySelector('button[type="submit"]');
+    const originalLabel = submitBtn?.innerHTML;
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.textContent = MESSAGES.sending;
+    }
+
+    try {
+      if (!ENDPOINT) {
+        // TODO: set PUBLIC_LEAD_ENDPOINT (Formspree or your webhook) to capture real leads.
+        // Until then, log the lead so nothing is lost during local testing.
+        console.log('[Ostavica] Lead (no PUBLIC_LEAD_ENDPOINT set):', data);
+      } else {
+        const res = await fetch(ENDPOINT, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          body: JSON.stringify(data),
+        });
+        if (!res.ok) throw new Error(`Request failed: ${res.status}`);
+      }
+      setStatus(MESSAGES.success, 'ok');
+      form.reset();
+    } catch (err) {
+      console.error('[Ostavica] Lead submit failed:', err);
+      setStatus(MESSAGES.error, 'err');
+    } finally {
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalLabel;
+      }
+    }
+  });
+</script>
+
+<script is:inline define:vars={{ messages: msg }}>
+  // Hand the localized status strings to the module script via a data attribute.
+  document.getElementById('reserve-form').dataset.messages = JSON.stringify(messages);
+</script>

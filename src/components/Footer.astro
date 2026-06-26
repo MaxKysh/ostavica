@@ -1,0 +1,77 @@
+---
+import Brand from './Brand.astro';
+import { languages, langLabels, localizedPath, useTranslations } from '../i18n/ui.js';
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+<footer class="footer">
+  <div class="container footer-inner">
+    <div class="footer-brand">
+      <Brand />
+      <p class="footer-tag">{t('footer.tagline')}</p>
+    </div>
+
+    <div class="footer-meta">
+      <p class="footer-loc">{t('footer.location')}</p>
+      <div class="lang-switch footer-lang" role="group" aria-label="Language">
+        {languages.map((l) => (
+          <a
+            href={localizedPath(l)}
+            data-lang-link
+            data-base={localizedPath(l)}
+            class:list={['lang-link', { active: l === lang }]}
+            aria-current={l === lang ? 'true' : undefined}
+            hreflang={l}
+          >{langLabels[l]}</a>
+        ))}
+      </div>
+      <p class="footer-rights">{t('footer.rights')}</p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    border-top: 1px solid var(--line);
+    padding-block: clamp(28px, 5vw, 44px);
+  }
+  .footer-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    justify-content: space-between;
+  }
+  .footer-tag {
+    color: var(--muted);
+    font-size: 0.92rem;
+    margin-top: 10px;
+  }
+  .footer-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .footer-loc {
+    font-weight: 500;
+  }
+  .footer-rights {
+    color: var(--muted);
+    font-size: 0.85rem;
+  }
+  .footer-lang {
+    background: var(--surface);
+  }
+
+  @media (min-width: 700px) {
+    .footer-inner {
+      flex-direction: row;
+      align-items: flex-end;
+    }
+    .footer-meta {
+      align-items: flex-end;
+      text-align: right;
+    }
+  }
+</style>

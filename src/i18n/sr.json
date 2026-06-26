@@ -1,0 +1,217 @@
+{
+  "meta": {
+    "lang": "sr",
+    "title": "Ostavica — mini skladišta u Podbari, Novi Sad",
+    "description": "Mali, čuvani boksovi za odlaganje u centru Novog Sada. Toplo, suvo, mesečno. Od €45/mes."
+  },
+  "nav": {
+    "sizes": "Veličine",
+    "how": "Kako funkcioniše",
+    "reserve": "Rezervacija",
+    "cta": "Rezerviši boks"
+  },
+  "hero": {
+    "eyebrow": "Uskoro otvaramo u Podbari · Novi Sad",
+    "h1": "Tvoja ostavica — na par koraka od kuće",
+    "sub": "Mali, čuvani boksovi u centru Novog Sada. Gume, kutije, bicikl, nameštaj pri selidbi — toplo, suvo, zaključano, pristup bilo kada.",
+    "pricePin": "Od €45/mes · mesečno · podrška na SR / RU / EN",
+    "ctaPrimary": "Rezerviši boks",
+    "ctaSecondary": "Veličine i cene",
+    "earlybird": "Prvim klijentima 20% popusta na prvi mesec."
+  },
+  "trust": [
+    {
+      "title": "Pešice, bez auta",
+      "text": "U stambenom kvartu blizu centra."
+    },
+    {
+      "title": "Toplo i čuvano",
+      "text": "Topli boks na zatvorenoj, čuvanoj teritoriji. Tvoj katanac na vratima."
+    },
+    {
+      "title": "Mesečno, bez obaveze",
+      "text": "Iznajmi koliko ti treba."
+    },
+    {
+      "title": "Na tvom jeziku",
+      "text": "Ugovor i podrška na SR / RU / EN."
+    }
+  ],
+  "fits": {
+    "kicker": "Šta možeš da čuvaš",
+    "h2": "Oslobodi terasu, hodnik i gepek",
+    "items": [
+      {
+        "title": "Sezonske gume",
+        "text": "Komplet točkova — dalje od terase."
+      },
+      {
+        "title": "Kutije i stvari",
+        "text": "Ono što ne bacaš, a nemaš gde."
+      },
+      {
+        "title": "Bicikl i sport",
+        "text": "Skije, trotineti, vansezonska oprema."
+      },
+      {
+        "title": "Selidba i nameštaj",
+        "text": "Mesto za stvari između stanova."
+      }
+    ]
+  },
+  "how": {
+    "items": [
+      {
+        "n": "1",
+        "title": "Izaberi veličinu",
+        "text": "Nisi siguran? Reci šta imaš — predložićemo."
+      },
+      {
+        "n": "2",
+        "title": "Rezerviši onlajn",
+        "text": "Dva minuta. Rezervacija bez plaćanja."
+      },
+      {
+        "n": "3",
+        "title": "Useli se i zaključaj",
+        "text": "Doneseš stvari, staviš svoj katanac, ključ je kod tebe."
+      }
+    ]
+  },
+  "sizes": {
+    "kicker": "Veličine i cene",
+    "h2": "Plaćaš samo prostor koji ti treba",
+    "per": "/mes",
+    "cta": "Izaberi",
+    "badge": "POPULARNO",
+    "cards": [
+      {
+        "size": "1,5 m²",
+        "price": "€45",
+        "desc": "Gume i par kutija. Veličine uskog ormara."
+      },
+      {
+        "size": "2 m²",
+        "price": "€60",
+        "popular": true,
+        "desc": "Kutije, stvari, bicikl. Veličine velikog ormara."
+      },
+      {
+        "size": "3,3 m²",
+        "price": "€75",
+        "desc": "Sadržaj sobe, nameštaj pri selidbi."
+      }
+    ],
+    "note": "Jeftinije uz plaćanje na 3 / 6 / 12 meseci. Jeftinije nego iznajmiti veći stan zbog odlaganja. Nisi siguran u veličinu? Pomažemo."
+  },
+  "space": {
+    "kicker": "Prostor",
+    "h2": "Čisto, suvo i lako dostupno"
+  },
+  "why": {
+    "kicker": "Zašto Ostavica",
+    "h2": "Praktično kao što skladišta na periferiji ne mogu",
+    "items": [
+      {
+        "title": "Tu, u kvartu",
+        "text": "Većina skladišta je na periferiji. Mi smo tu gde živiš — pešice, bez auta, ulazak s ulice, bez lifta."
+      },
+      {
+        "title": "Zatvorena teritorija",
+        "text": "Boks je zaključan i nalazi se na čuvanoj, zatvorenoj teritoriji — stvari su bezbedne."
+      },
+      {
+        "title": "Ključ samo kod tebe",
+        "text": "Tvoj sopstveni katanac na boksu. Mi ne ulazimo — pristup je samo tvoj."
+      },
+      {
+        "title": "Lak izlazak",
+        "text": "Seliš se? Samo pokupi stvari. Bez penala i dugih otkaza. Može i na mesec dana."
+      },
+      {
+        "title": "Plaćanje kako ti odgovara",
+        "text": "Keš, uplata ili kartica. Srpski račun nije potreban."
+      },
+      {
+        "title": "Toplo i suvo",
+        "text": "Greje se zimi i provetrava — nije vlažan podrum. Stvari i kutije ostaju u redu."
+      },
+      {
+        "title": "Na tvom jeziku",
+        "text": "Ugovor i pomoć na SR / RU / EN. Bez birokratije — pomažemo da se snađeš."
+      },
+      {
+        "title": "Fleksibilna veličina",
+        "text": "Treba ti više mesta? Pređeš u veći boks, bez muke."
+      }
+    ]
+  },
+  "about": {
+    "kicker": "O nama",
+    "h2": "Nije bezlično skladište",
+    "text": "Ja sam [Ime]. I sam sam se doselio u Novi Sad i znam kako je kad stvarima nema mesta, a nositi ih na periferiju nije opcija. Ostavica nije anoniman hangar — dođi, upoznaćemo se i pokazaću ti prostor pre rezervacije. Ugovor ostaje kod tebe."
+  },
+  "faq": {
+    "items": [
+      {
+        "q": "Mogu li prvo da dođem i pogledam?",
+        "a": "Da — dođi pre rezervacije i pokazaćemo ti prostor i boksove."
+      },
+      {
+        "q": "Kako se plaća? Treba li srpski račun?",
+        "a": "Ne. Keš, uplata ili kartica — kako ti odgovara."
+      },
+      {
+        "q": "Kada mogu da priđem stvarima?",
+        "a": "U radno vreme; detalje pristupa dogovaramo pri rezervaciji."
+      },
+      {
+        "q": "Šta ako napustim Srbiju?",
+        "a": "Samo pokupi stvari. Bez penala — minimum je mesec dana."
+      },
+      {
+        "q": "Da li su stvari osigurane?",
+        "a": "Prostor je čuvan; stvari osiguravaš sam."
+      },
+      {
+        "q": "Koliko je bezbedno?",
+        "a": "Topao, zatvoren prostor na čuvanoj teritoriji, sa zasebnim katancem na svakom boksu."
+      },
+      {
+        "q": "Šta ne sme da se čuva?",
+        "a": "Hrana, zapaljive i zabranjene stvari."
+      }
+    ]
+  },
+  "reserve": {
+    "h2": "Rezerviši boks",
+    "sub": "Uskoro otvaramo. Ostavi upit — javićemo se, odgovoriti na pitanja i sačuvati ti popust za prve. Bez obaveze.",
+    "form": {
+      "name": "Ime",
+      "namePlaceholder": "Tvoje ime",
+      "what": "Šta planiraš da čuvaš",
+      "whatOptions": [
+        "Gume / točkovi",
+        "Kutije i lične stvari",
+        "Bicikl / sportska oprema",
+        "Nameštaj / selidba",
+        "Drugo"
+      ],
+      "size": "Koja veličina",
+      "sizeOptions": [
+        "1,5 m² — €45/mes",
+        "2 m² — €60/mes",
+        "3,3 m² — €75/mes",
+        "Još ne znam, posavetujte me"
+      ],
+      "contact": "Kontakt (WhatsApp / Telegram / email)",
+      "submit": "Pošalji upit",
+      "micro": "Bez obaveze."
+    }
+  },
+  "footer": {
+    "location": "Podbara, Novi Sad",
+    "tagline": "Tvoj prostor. Na sigurnom.",
+    "rights": "© 2026 Ostavica"
+  }
+}

@@ -1,0 +1,175 @@
+---
+import { Image } from 'astro:assets';
+import Icon from './Icon.astro';
+import { useTranslations } from '../i18n/ui.js';
+import scale1 from '../images/viz-scale-1_5m.jpg';
+import scale2 from '../images/viz-scale-2m.jpg';
+import scale3 from '../images/viz-scale-3_3m.jpg';
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const cards = t('sizes.cards');
+const scales = [scale1, scale2, scale3];
+
+const altFor = (size) =>
+  ({
+    ru: `Схема ячейки ${size} с примером заполнения`,
+    sr: `Šema boksa ${size} sa primerom popunjenosti`,
+    en: `Scale diagram of a ${size} storage unit with example contents`,
+  })[lang];
+---
+<section id="sizes" class="section sizes">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="kicker">{t('sizes.kicker')}</span>
+      <h2>{t('sizes.h2')}</h2>
+    </div>
+
+    <ul class="sizes-grid">
+      {cards.map((card, i) => (
+        <li
+          class:list={['size-card card reveal', { popular: card.popular }]}
+          style={`transition-delay:${i * 80}ms`}
+        >
+          {card.popular && <span class="size-badge"><Icon name="check" size={14} />{t('sizes.badge')}</span>}
+          <div class="size-media">
+            <Image
+              src={scales[i]}
+              alt={altFor(card.size)}
+              widths={[240, 360, 480]}
+              sizes="(min-width: 760px) 320px, 90vw"
+              format="webp"
+              quality={75}
+              loading="lazy"
+              class="size-img"
+            />
+          </div>
+          <div class="size-body">
+            <div class="size-name">{card.size}</div>
+            <p class="size-desc">{card.desc}</p>
+            <div class="size-price">
+              {card.price}<span class="size-per">{t('sizes.per')}</span>
+            </div>
+            <button
+              type="button"
+              class:list={['btn', 'btn-block', card.popular ? 'btn-primary' : 'btn-ghost']}
+              data-choose-size={i}
+            >{t('sizes.cta')}</button>
+          </div>
+        </li>
+      ))}
+    </ul>
+
+    <p class="sizes-note reveal">{t('sizes.note')}</p>
+  </div>
+</section>
+
+<style>
+  .sizes-grid {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+    align-items: start;
+  }
+  .size-card {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  .size-card.popular {
+    border-color: var(--green);
+    box-shadow: var(--shadow-card);
+  }
+  .size-badge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    z-index: 1;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: var(--green);
+    color: #fff;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    padding: 5px 10px;
+    border-radius: 999px;
+  }
+  .size-media {
+    background: #fff;
+    aspect-ratio: 4 / 3;
+    border-bottom: 1px solid var(--line);
+  }
+  .size-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    padding: 10px;
+  }
+  .size-body {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+  .size-name {
+    font-family: var(--font-head);
+    font-weight: 700;
+    font-size: 1.5rem;
+  }
+  .size-desc {
+    color: var(--muted);
+    font-size: 0.92rem;
+    margin: 6px 0 14px;
+    min-height: 2.8em;
+  }
+  .size-price {
+    font-family: var(--font-head);
+    font-weight: 700;
+    font-size: 1.9rem;
+    margin-bottom: 16px;
+  }
+  .size-per {
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--muted);
+  }
+  .size-body .btn {
+    margin-top: auto;
+  }
+  .sizes-note {
+    text-align: center;
+    color: var(--muted);
+    font-size: 0.92rem;
+    margin-top: 22px;
+    max-width: 60ch;
+    margin-inline: auto;
+  }
+
+  @media (min-width: 760px) {
+    .sizes-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+</style>
+
+<script>
+  // "Choose" → scroll to form and preselect the size in the dropdown.
+  document.querySelectorAll('[data-choose-size]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const index = btn.getAttribute('data-choose-size');
+      const select = document.getElementById('field-size');
+      const form = document.getElementById('reserve');
+      if (select) select.value = index;
+      if (form) {
+        form.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        window.setTimeout(() => select && select.focus({ preventScroll: true }), 500);
+      }
+    });
+  });
+</script>

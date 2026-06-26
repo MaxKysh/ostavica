@@ -1,0 +1,122 @@
+---
+import { Image } from 'astro:assets';
+import { useTranslations } from '../i18n/ui.js';
+import corridor from '../images/hero-corridor.jpg';
+import hall from '../images/space-hall-02.jpg';
+import unitOpen from '../images/unit-open-tires-boxes-bike.jpg';
+import heated from '../images/feature-heated.jpg';
+import facade from '../images/exterior-facade.jpg';
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const gallery = [
+  {
+    src: corridor,
+    big: true,
+    alt: {
+      ru: 'Чистый освещённый коридор склада с рядами белых ячеек',
+      sr: 'Čist, osvetljen hodnik skladišta sa redovima belih boksova',
+      en: 'Clean, well-lit storage corridor with rows of white units',
+    }[lang],
+  },
+  {
+    src: unitOpen,
+    alt: {
+      ru: 'Открытая ячейка №101 с велосипедом, шинами и коробками внутри',
+      sr: 'Otvoren boks br. 101 sa biciklom, gumama i kutijama unutra',
+      en: 'Open unit no. 101 with a bike, tires and boxes inside',
+    }[lang],
+  },
+  {
+    src: heated,
+    alt: {
+      ru: 'Отапливаемое помещение склада с термометром на стене',
+      sr: 'Grejani prostor skladišta sa termometrom na zidu',
+      en: 'Heated storage room with a thermometer on the wall',
+    }[lang],
+  },
+  {
+    src: hall,
+    alt: {
+      ru: 'Просторный зал склада с дневным светом из окон',
+      sr: 'Prostrana sala skladišta sa dnevnim svetlom kroz prozore',
+      en: 'Spacious storage hall with daylight from the windows',
+    }[lang],
+  },
+  {
+    src: facade,
+    alt: {
+      ru: 'Закрытый внутренний двор и фасад с зелёным знаком Ostavica',
+      sr: 'Zatvoreno dvorište i fasada sa zelenim znakom Ostavica',
+      en: 'Gated courtyard and façade with the green Ostavica sign',
+    }[lang],
+  },
+];
+---
+<section id="space" class="section space">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="kicker">{t('space.kicker')}</span>
+      <h2>{t('space.h2')}</h2>
+    </div>
+
+    <div class="gallery">
+      {gallery.map((g, i) => (
+        <figure class:list={['gallery-item reveal', { big: g.big }]} style={`transition-delay:${i * 60}ms`}>
+          <Image
+            src={g.src}
+            alt={g.alt}
+            widths={g.big ? [400, 600, 800, 1000] : [320, 480, 640, 800]}
+            sizes={g.big ? '(min-width: 760px) 700px, 92vw' : '(min-width: 760px) 350px, 92vw'}
+            format="webp"
+            quality={75}
+            loading="lazy"
+            class="gallery-img"
+          />
+        </figure>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .gallery {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .gallery-item {
+    margin: 0;
+    border-radius: var(--radius);
+    overflow: hidden;
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow-soft);
+  }
+  .gallery-img {
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+  }
+
+  @media (min-width: 640px) {
+    .gallery {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media (min-width: 880px) {
+    .gallery {
+      grid-template-columns: repeat(3, 1fr);
+      grid-auto-flow: dense;
+    }
+    .gallery-item.big {
+      grid-column: span 2;
+      grid-row: span 2;
+    }
+    .gallery-item.big .gallery-img {
+      aspect-ratio: auto;
+      min-height: 100%;
+    }
+  }
+</style>

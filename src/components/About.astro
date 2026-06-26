@@ -1,0 +1,72 @@
+---
+import { Image } from 'astro:assets';
+import { useTranslations } from '../i18n/ui.js';
+import founder from '../images/person.jpg';
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const founderAlt = {
+  ru: 'Основатель Ostavica с ключами от ячеек',
+  sr: 'Osnivač Ostavice sa ključevima od boksova',
+  en: 'The founder of Ostavica holding the unit keys',
+}[lang];
+---
+<section id="about" class="section about">
+  <div class="container about-grid">
+    <div class="about-media reveal">
+      <Image
+        src={founder}
+        alt={founderAlt}
+        widths={[280, 400, 560]}
+        sizes="(min-width: 760px) 360px, 80vw"
+        format="webp"
+        quality={75}
+        loading="lazy"
+        class="about-img"
+      />
+    </div>
+
+    <div class="about-copy reveal">
+      <span class="kicker">{t('about.kicker')}</span>
+      <h2>{t('about.h2')}</h2>
+      <p class="about-text">{t('about.text')}</p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: clamp(24px, 5vw, 48px);
+    align-items: center;
+  }
+  .about-media {
+    max-width: 360px;
+  }
+  .about-img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow-card);
+  }
+  .about-copy h2 {
+    font-size: clamp(1.5rem, 4.5vw, 2.1rem);
+    margin-bottom: 16px;
+  }
+  .about-text {
+    color: var(--muted);
+    font-size: 1.05rem;
+    max-width: 48ch;
+  }
+
+  @media (min-width: 760px) {
+    .about-grid {
+      grid-template-columns: 360px 1fr;
+    }
+  }
+</style>

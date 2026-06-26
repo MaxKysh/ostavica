@@ -1,0 +1,34 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Nav from './Nav.astro';
+import Hero from './Hero.astro';
+import Trust from './Trust.astro';
+import Fits from './Fits.astro';
+import How from './How.astro';
+import Sizes from './Sizes.astro';
+import Space from './Space.astro';
+import Why from './Why.astro';
+import About from './About.astro';
+import Faq from './Faq.astro';
+import Reserve from './Reserve.astro';
+import Footer from './Footer.astro';
+
+// Single source of page assembly; each locale page passes its `lang`.
+const { lang } = Astro.props;
+---
+<Layout lang={lang}>
+  <Nav lang={lang} />
+  <main>
+    <Hero lang={lang} />
+    <Trust lang={lang} />
+    <Fits lang={lang} />
+    <How lang={lang} />
+    <Sizes lang={lang} />
+    <Space lang={lang} />
+    <Why lang={lang} />
+    <About lang={lang} />
+    <Faq lang={lang} />
+    <Reserve lang={lang} />
+  </main>
+  <Footer lang={lang} />
+</Layout>

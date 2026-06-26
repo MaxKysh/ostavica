@@ -1,0 +1,114 @@
+---
+import Icon from './Icon.astro';
+import { useTranslations } from '../i18n/ui.js';
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const items = t('faq.items');
+const headings = { ru: 'Частые вопросы', sr: 'Česta pitanja', en: 'Frequently asked questions' };
+---
+<section id="faq" class="section faq">
+  <div class="container faq-wrap">
+    <div class="section-head reveal">
+      <h2>{headings[lang]}</h2>
+    </div>
+
+    <ul class="faq-list reveal">
+      {items.map((item, i) => (
+        <li class="faq-item">
+          <h3 class="faq-q">
+            <button
+              type="button"
+              class="faq-trigger"
+              aria-expanded="false"
+              aria-controls={`faq-panel-${i}`}
+              id={`faq-trigger-${i}`}
+            >
+              <span>{item.q}</span>
+              <span class="faq-chevron"><Icon name="chevronDown" size={20} /></span>
+            </button>
+          </h3>
+          <div
+            id={`faq-panel-${i}`}
+            class="faq-panel"
+            role="region"
+            aria-labelledby={`faq-trigger-${i}`}
+          >
+            <div class="faq-panel-inner"><p>{item.a}</p></div>
+          </div>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .faq-wrap {
+    max-width: 760px;
+  }
+  .faq-list {
+    list-style: none;
+    padding: 0;
+    border-top: 1px solid var(--line);
+  }
+  .faq-item {
+    border-bottom: 1px solid var(--line);
+  }
+  .faq-q {
+    margin: 0;
+    font-size: inherit;
+    font-weight: inherit;
+  }
+  .faq-trigger {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 20px 4px;
+    background: none;
+    border: 0;
+    cursor: pointer;
+    text-align: left;
+    font-family: var(--font-head);
+    font-weight: 600;
+    font-size: 1.05rem;
+    color: var(--ink);
+  }
+  .faq-chevron {
+    flex: none;
+    display: inline-flex;
+    color: var(--green-dark);
+    transition: transform 0.3s ease;
+  }
+  .faq-trigger[aria-expanded='true'] .faq-chevron {
+    transform: rotate(180deg);
+  }
+  .faq-panel {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.3s ease;
+  }
+  .faq-panel.open {
+    grid-template-rows: 1fr;
+  }
+  .faq-panel-inner {
+    overflow: hidden;
+    color: var(--muted);
+  }
+  .faq-panel-inner p {
+    padding: 0 4px 20px;
+    max-width: 60ch;
+  }
+</style>
+
+<script>
+  document.querySelectorAll('.faq-trigger').forEach((trigger) => {
+    const panel = document.getElementById(trigger.getAttribute('aria-controls'));
+    trigger.addEventListener('click', () => {
+      const open = trigger.getAttribute('aria-expanded') === 'true';
+      trigger.setAttribute('aria-expanded', String(!open));
+      if (panel) panel.classList.toggle('open', !open);
+    });
+  });
+</script>

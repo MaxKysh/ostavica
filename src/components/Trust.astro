@@ -1,0 +1,68 @@
+---
+import Icon from './Icon.astro';
+import { useTranslations } from '../i18n/ui.js';
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const items = t('trust');
+const icons = ['walk', 'shieldHeat', 'calendar', 'globe'];
+---
+<section class="section trust" aria-label="Highlights">
+  <div class="container">
+    <ul class="trust-grid">
+      {items.map((item, i) => (
+        <li class="trust-item card reveal" style={`transition-delay:${i * 70}ms`}>
+          <span class="trust-icon"><Icon name={icons[i]} size={22} /></span>
+          <h3 class="trust-title">{item.title}</h3>
+          <p class="trust-text">{item.text}</p>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .trust {
+    padding-block: clamp(8px, 3vw, 24px);
+  }
+  .trust-grid {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .trust-item {
+    padding: 20px;
+  }
+  .trust-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: var(--surface-2);
+    color: var(--green-dark);
+    margin-bottom: 14px;
+  }
+  .trust-title {
+    font-size: 1.05rem;
+    margin-bottom: 6px;
+  }
+  .trust-text {
+    color: var(--muted);
+    font-size: 0.94rem;
+  }
+
+  @media (min-width: 560px) {
+    .trust-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media (min-width: 880px) {
+    .trust-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+</style>

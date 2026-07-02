@@ -109,6 +109,12 @@ h3 {
   max-width: 36ch;
   margin-bottom: clamp(28px, 5vw, 44px);
 }
+/* On desktop let headings run on one line across the full content width */
+@media (min-width: 768px) {
+  .section-head {
+    max-width: none;
+  }
+}
 .section-head h2 {
   font-size: clamp(1.6rem, 5vw, 2.4rem);
 }

@@ -16,46 +16,47 @@ const privacyHref = `/privacy-${lang}.pdf`;
 </div>
 
 <style>
-  /* Full-width bar pinned to the very top — unmissable, near the desktop menu,
-     and clear of the mobile menu button at the bottom-right. */
+  /* Bottom card. On mobile it sits above the floating menu button so they
+     don't overlap; on desktop it's pinned near the bottom. */
   .cookie-banner {
     position: fixed;
     z-index: 80;
-    top: 0;
-    left: 0;
-    right: 0;
+    left: 16px;
+    right: 16px;
+    bottom: calc(max(16px, env(safe-area-inset-bottom, 0px)) + 62px);
+    max-width: 620px;
+    margin-inline: auto;
     background: var(--green-deep);
     color: #fff;
-    padding: 12px clamp(16px, 4vw, 28px);
+    border-radius: 16px;
+    padding: 16px 18px;
     display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-    gap: 10px 20px;
+    flex-direction: column;
+    gap: 14px;
   }
   .cookie-text {
     font-size: 0.9rem;
-    line-height: 1.45;
+    line-height: 1.5;
     color: #e6f0dc;
-    max-width: 78ch;
   }
   .cookie-text a {
     color: #fff;
     font-weight: 600;
     text-decoration: underline;
     text-underline-offset: 2px;
-    white-space: nowrap;
   }
   .cookie-actions {
-    flex: none;
+    display: flex;
+    justify-content: flex-end;
   }
   .cookie-btn {
     border: 0;
     border-radius: 999px;
-    padding: 9px 22px;
+    padding: 10px 22px;
     font-weight: 600;
     font-size: 0.9rem;
     cursor: pointer;
+    touch-action: manipulation;
     transition: background-color 0.18s ease, color 0.18s ease;
   }
   .cookie-accept {
@@ -64,5 +65,25 @@ const privacyHref = `/privacy-${lang}.pdf`;
   }
   .cookie-accept:hover {
     background: #eef6e4;
+  }
+
+  @media (min-width: 560px) {
+    .cookie-banner {
+      flex-direction: row;
+      align-items: center;
+      gap: 20px;
+    }
+    .cookie-text {
+      flex: 1;
+    }
+    .cookie-actions {
+      flex: none;
+    }
+  }
+  /* No floating menu button on desktop — sit at the very bottom. */
+  @media (min-width: 880px) {
+    .cookie-banner {
+      bottom: max(16px, env(safe-area-inset-bottom, 0px));
+    }
   }
 </style>

@@ -121,10 +121,12 @@ const ymScript = `(function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a|
         function loadMetrika() {
           if (!ymEnabled || window.__ymLoaded) return;
           window.__ymLoaded = 1;
-          var s = document.createElement('script');
-          s.type = 'text/javascript';
-          s.text = ymScript;
-          document.head.appendChild(s);
+          try {
+            var s = document.createElement('script');
+            s.type = 'text/javascript';
+            s.text = ymScript;
+            document.head.appendChild(s);
+          } catch (e) {}
         }
         var consent = null;
         try {
@@ -132,20 +134,19 @@ const ymScript = `(function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a|
         } catch (e) {}
         if (consent === 'granted') {
           loadMetrika();
-        } else if (consent !== 'denied' && banner) {
+        } else if (banner) {
           banner.hidden = false;
         }
         if (banner) {
-          banner.addEventListener('click', function (e) {
-            var btn = e.target.closest('[data-consent]');
+          // Accept: dismiss the banner FIRST (always), then store + load analytics.
+          var onAccept = function (e) {
+            var btn = e.target && e.target.closest ? e.target.closest('[data-consent]') : null;
             if (!btn) return;
-            var accepted = btn.getAttribute('data-consent') === 'accept';
-            try {
-              localStorage.setItem(KEY, accepted ? 'granted' : 'denied');
-            } catch (e) {}
-            if (accepted) loadMetrika();
             banner.hidden = true;
-          });
+            try { localStorage.setItem(KEY, 'granted'); } catch (err) {}
+            loadMetrika();
+          };
+          banner.addEventListener('click', onAccept);
         }
       })();
     </script>

@@ -13,59 +13,67 @@ const founderAlt = {
 }[lang];
 ---
 <section id="about" class="section about">
-  <div class="container about-grid">
-    <div class="about-media reveal">
-      <Image
-        src={founder}
-        alt={founderAlt}
-        widths={[280, 400, 560]}
-        sizes="(min-width: 760px) 360px, 80vw"
-        format="webp"
-        quality={75}
-        loading="lazy"
-        class="about-img"
-      />
-    </div>
+  <div class="container">
+    <div class="about-card reveal">
+      <div class="about-media">
+        <Image
+          src={founder}
+          alt={founderAlt}
+          widths={[280, 400, 560]}
+          sizes="(min-width: 760px) 300px, 80vw"
+          format="webp"
+          quality={75}
+          loading="lazy"
+          class="about-img"
+        />
+      </div>
 
-    <div class="about-copy reveal">
-      <span class="kicker">{t('about.kicker')}</span>
-      <h2>{t('about.h2')}</h2>
-      <p class="about-text">{t('about.text')}</p>
+      <div class="about-copy">
+        <span class="kicker">{t('about.kicker')}</span>
+        <h2>{t('about.h2')}</h2>
+        <p class="about-text">{t('about.text')}</p>
+      </div>
     </div>
   </div>
 </section>
 
 <style>
-  .about-grid {
+  /* Self-contained "founder" card so the block matches the page's card
+     language and doesn't leave a big empty column on the right. */
+  .about-card {
+    background: var(--surface);
+    border-radius: var(--radius-lg);
+    padding: clamp(20px, 3.5vw, 36px);
     display: grid;
     grid-template-columns: 1fr;
-    gap: clamp(24px, 5vw, 48px);
+    gap: clamp(22px, 4vw, 40px);
     align-items: center;
+    max-width: 980px;
+    margin-inline: auto;
   }
   .about-media {
-    max-width: 360px;
+    max-width: 300px;
   }
   .about-img {
     width: 100%;
     height: auto;
     aspect-ratio: 4 / 5;
     object-fit: cover;
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-card);
+    border-radius: var(--radius);
   }
   .about-copy h2 {
-    font-size: clamp(1.5rem, 4.5vw, 2.1rem);
+    font-size: clamp(1.5rem, 4vw, 2rem);
     margin-bottom: 16px;
   }
   .about-text {
     color: var(--muted);
     font-size: 1.05rem;
-    max-width: 48ch;
+    max-width: 46ch;
   }
 
   @media (min-width: 760px) {
-    .about-grid {
-      grid-template-columns: 360px 1fr;
+    .about-card {
+      grid-template-columns: 300px 1fr;
     }
   }
 </style>

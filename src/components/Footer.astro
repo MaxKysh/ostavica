@@ -4,16 +4,21 @@ import { languages, langLabels, localizedPath, useTranslations } from '../i18n/u
 
 const { lang } = Astro.props;
 const t = useTranslations(lang);
+
+const phone = t('footer.phone');
+const tel = `tel:${phone.replace(/\s+/g, '')}`;
 ---
 <footer class="footer">
   <div class="container footer-inner">
     <div class="footer-brand">
       <Brand />
       <p class="footer-tag">{t('footer.tagline')}</p>
+      <p class="footer-rights">{t('footer.rights')}</p>
     </div>
 
     <div class="footer-meta">
       <p class="footer-loc">{t('footer.location')}</p>
+      <a class="footer-phone" href={tel}>{phone}</a>
       <div class="lang-switch footer-lang" role="group" aria-label="Language">
         {languages.map((l) => (
           <a
@@ -26,7 +31,6 @@ const t = useTranslations(lang);
           >{langLabels[l]}</a>
         ))}
       </div>
-      <p class="footer-rights">{t('footer.rights')}</p>
     </div>
   </div>
 </footer>
@@ -55,9 +59,18 @@ const t = useTranslations(lang);
   .footer-loc {
     font-weight: 500;
   }
+  .footer-phone {
+    font-weight: 600;
+    color: var(--green-dark);
+    transition: color 0.18s ease;
+  }
+  .footer-phone:hover {
+    color: var(--green);
+  }
   .footer-rights {
     color: var(--muted);
     font-size: 0.85rem;
+    margin-top: 8px;
   }
   .footer-lang {
     flex-wrap: wrap;

@@ -148,8 +148,9 @@
   },
   "about": {
     "kicker": "About us",
+    "sectionTitle": "About us & where we are",
     "h2": "Not a faceless warehouse",
-    "text": "I’m [Name]. I moved to Novi Sad myself and know what it’s like when there’s no room for your things and hauling them to the edge of town isn’t an option. Ostavica isn’t an anonymous hangar — come by, we’ll meet and I’ll show you the space before you book. The contract is yours to keep."
+    "text": "I’m Ilya. I moved to Novi Sad myself and know what it’s like when there’s no room for your things and hauling them to the edge of town isn’t an option. Ostavica isn’t an anonymous hangar — come by, we’ll meet and I’ll show you the space before you book. The contract is yours to keep."
   },
   "faq": {
     "items": [
@@ -206,11 +207,14 @@
       ],
       "contact": "Contact (WhatsApp / Telegram / email)",
       "submit": "Send request",
-      "micro": "No commitment."
+      "micro": "No commitment.",
+      "callNote": "Prefer to call?"
     }
   },
   "footer": {
     "location": "Podbara, Novi Sad",
+    "phoneLabel": "Phone",
+    "phone": "+381 67 775 0165",
     "tagline": "Tvoj prostor. Na sigurnom.",
     "rights": "© 2026 Ostavica"
   }

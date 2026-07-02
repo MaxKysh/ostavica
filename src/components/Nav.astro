@@ -14,9 +14,12 @@ const links = [
 ---
 <header id="site-header" class="header">
   <div class="container header-inner">
-    <a href={localizedPath(lang)} class="header-brand" aria-label="Ostavica — home">
-      <Brand />
-    </a>
+    <div class="header-left">
+      <a href={localizedPath(lang)} class="header-brand" aria-label="Ostavica — home">
+        <Brand />
+      </a>
+      <span class="header-tagline">{t('footer.tagline')}</span>
+    </div>
 
     <nav class="nav-desktop" aria-label="Primary">
       <ul class="nav-links">
@@ -95,8 +98,27 @@ const links = [
     gap: 16px;
     height: 64px;
   }
+  .header-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 0;
+  }
   .header-brand {
     display: inline-flex;
+    /* raise the logo so its bottom lines up with the menu/tagline text */
+    transform: translateY(-7px);
+  }
+  .header-tagline {
+    display: none;
+    font-size: 0.82rem;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+  @media (min-width: 1080px) {
+    .header-tagline {
+      display: inline;
+    }
   }
 
   .nav-desktop {

@@ -15,6 +15,12 @@ const canonical = new URL(localizedPath(lang), site).href;
 
 // TODO: replace with a real, per-language OG image (1200×630) before launch.
 const ogImage = new URL('/og-default.png', site).href;
+
+// Yandex.Metrika — loaded only in production builds so local/dev visits
+// don't pollute the stats. Change the counter id here if it ever changes.
+const YM_ID = 110343847;
+const isProd = import.meta.env.PROD;
+const ymScript = `(function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};m[i].l=1*new Date();for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=${YM_ID}', 'ym');ym(${YM_ID}, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});`;
 ---
 <!doctype html>
 <html lang={lang}>
@@ -31,6 +37,7 @@ const ogImage = new URL('/og-default.png', site).href;
     <title>{t('meta.title')}</title>
     <meta name="description" content={t('meta.description')} />
     <meta name="theme-color" content="#6fbe3f" />
+    <meta name="yandex-verification" content="364e649a8d4d6ddd" />
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="canonical" href={canonical} />
@@ -48,8 +55,18 @@ const ogImage = new URL('/og-default.png', site).href;
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={ogImage} />
     <meta name="twitter:card" content="summary_large_image" />
+
+    {isProd && (
+      <!-- Yandex.Metrika counter -->
+      <script type="text/javascript" is:inline set:html={ymScript} />
+    )}
   </head>
   <body>
+    {isProd && (
+      <noscript>
+        <div><img src={`https://mc.yandex.ru/watch/${YM_ID}`} style="position:absolute; left:-9999px;" alt="" /></div>
+      </noscript>
+    )}
     <slot />
 
     <script>

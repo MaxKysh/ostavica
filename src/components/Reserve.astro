@@ -6,30 +6,50 @@ const { lang } = Astro.props;
 const t = useTranslations(lang);
 const f = t('reserve.form');
 
+const phone = t('footer.phone');
+const tel = `tel:${phone.replace(/\s+/g, '')}`;
+
 // Localized status messages (not part of the content dictionary).
 const msg = {
   ru: {
     success: 'Спасибо! Заявка получена — мы свяжемся с вами в ближайшее время.',
+    successMail: 'Спасибо! Открылось письмо с заявкой — отправьте его, и мы свяжемся с вами.',
     error: 'Не удалось отправить. Попробуйте ещё раз или напишите нам напрямую.',
     sending: 'Отправляем…',
+    invalidName: 'Введите имя',
+    invalidContact: 'Оставьте контакт: телефон, @ник или email',
   },
   sr: {
     success: 'Hvala! Upit je primljen — javićemo vam se uskoro.',
+    successMail: 'Hvala! Otvorio se mejl sa upitom — pošaljite ga i javićemo vam se.',
     error: 'Slanje nije uspelo. Pokušajte ponovo ili nam pišite direktno.',
     sending: 'Šaljemo…',
+    invalidName: 'Unesite ime',
+    invalidContact: 'Ostavite kontakt: telefon, @nadimak ili email',
   },
   en: {
     success: 'Thanks! Your request was received — we’ll be in touch shortly.',
+    successMail: 'Thanks! An email with your request opened — send it and we’ll be in touch.',
     error: 'Couldn’t send. Please try again or message us directly.',
     sending: 'Sending…',
+    invalidName: 'Enter your name',
+    invalidContact: 'Leave a contact: phone, @handle or email',
   },
 }[lang];
+
+// Where leads go for now (no backend yet): opens the visitor's mail client
+// prefilled to this address. Swap to PUBLIC_LEAD_ENDPOINT (Formspree/webhook)
+// for silent server-side delivery later.
+const LEAD_EMAIL = 'maxkysh@gmail.com';
 ---
 <section id="reserve" class="section reserve">
   <div class="container reserve-grid">
     <div class="reserve-intro reveal">
       <h2>{t('reserve.h2')}</h2>
       <p class="reserve-sub">{t('reserve.sub')}</p>
+      <p class="reserve-call">
+        {f.callNote} <a href={tel}>{phone}</a>
+      </p>
     </div>
 
     <div class="reserve-card card reveal">
@@ -81,8 +101,8 @@ const msg = {
         <input type="hidden" name="utm_term" />
         <input type="hidden" name="utm_content" />
         <input type="hidden" name="referrer" />
-        <!-- Honeypot: bots fill this, humans don't. -->
-        <input type="text" name="company" tabindex="-1" autocomplete="off" class="honeypot" aria-hidden="true" />
+        <!-- Honeypot: bots fill this, humans don't. `_gotcha` is Formspree's own honeypot name. -->
+        <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" class="honeypot" aria-hidden="true" />
 
         <button type="submit" class="btn btn-primary btn-block reserve-submit">
           {f.submit}<Icon name="arrowRight" size={18} />
@@ -113,6 +133,21 @@ const msg = {
     color: #dcebd0;
     font-size: 1.05rem;
     max-width: 40ch;
+  }
+  /* Secondary contact — kept low-key so the form stays the primary action */
+  .reserve-call {
+    margin-top: 18px;
+    font-size: 0.92rem;
+    color: #bcd3ab;
+  }
+  .reserve-call a {
+    color: #fff;
+    font-weight: 600;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.35);
+    padding-bottom: 1px;
+  }
+  .reserve-call a:hover {
+    border-bottom-color: #fff;
   }
   .reserve-card {
     padding: clamp(20px, 4vw, 30px);
@@ -206,8 +241,9 @@ const msg = {
   const form = document.getElementById('reserve-form');
   const statusEl = document.getElementById('reserve-status');
 
-  // Localized status strings injected from the frontmatter.
+  // Localized status strings + lead email injected from the frontmatter.
   const MESSAGES = JSON.parse(document.getElementById('reserve-form').dataset.messages || '{}');
+  const LEAD_EMAIL = document.getElementById('reserve-form').dataset.leadEmail || '';
 
   // Pull UTM params + referrer from the URL into the hidden fields (channel attribution).
   const params = new URLSearchParams(window.location.search);
@@ -229,11 +265,40 @@ const msg = {
     if (kind) statusEl.classList.add(kind);
   }
 
+  // Custom validation (beyond the HTML `required`): reject whitespace-only /
+  // too-short name and contact, with a localized message on the field itself.
+  function validate() {
+    const nameEl = form.elements.namedItem('name');
+    const contactEl = form.elements.namedItem('contact');
+    nameEl.setCustomValidity(nameEl.value.trim().length < 2 ? MESSAGES.invalidName : '');
+    contactEl.setCustomValidity(contactEl.value.trim().length < 3 ? MESSAGES.invalidContact : '');
+  }
+  ['name', 'contact'].forEach((n) => {
+    const el = form?.elements.namedItem(n);
+    el?.addEventListener('input', () => el.setCustomValidity(''));
+  });
+
+  function buildMailto(data) {
+    const subject = `Ostavica — заявка: ${data.name || '—'}`;
+    const lines = [
+      `Имя: ${data.name || '—'}`,
+      `Что хранить: ${data.what || '—'}`,
+      `Размер: ${data.size || '—'}`,
+      `Контакт: ${data.contact || '—'}`,
+      `Язык страницы: ${data.locale || '—'}`,
+    ];
+    ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'referrer'].forEach((k) => {
+      if (data[k]) lines.push(`${k}: ${data[k]}`);
+    });
+    return `mailto:${LEAD_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(lines.join('\n'))}`;
+  }
+
   form?.addEventListener('submit', async (e) => {
     e.preventDefault();
+    validate();
     if (!form.reportValidity()) return;
     // Honeypot tripped → silently pretend success.
-    if (form.elements.namedItem('company')?.value) {
+    if (form.elements.namedItem('_gotcha')?.value) {
       setStatus(MESSAGES.success, 'ok');
       form.reset();
       return;
@@ -245,7 +310,7 @@ const msg = {
     if (sizeSelect && sizeSelect.selectedIndex >= 0) {
       data.size = sizeSelect.options[sizeSelect.selectedIndex].text;
     }
-    delete data.company;
+    delete data._gotcha;
 
     const submitBtn = form.querySelector('button[type="submit"]');
     const originalLabel = submitBtn?.innerHTML;
@@ -254,20 +319,28 @@ const msg = {
       submitBtn.textContent = MESSAGES.sending;
     }
 
+    let successMsg = MESSAGES.success;
     try {
-      if (!ENDPOINT) {
-        // TODO: set PUBLIC_LEAD_ENDPOINT (Formspree or your webhook) to capture real leads.
-        // Until then, log the lead so nothing is lost during local testing.
-        console.log('[Ostavica] Lead (no PUBLIC_LEAD_ENDPOINT set):', data);
-      } else {
+      if (ENDPOINT) {
+        // Preferred path: silent server-side delivery (Formspree/webhook).
+        const payload = { ...data, _subject: `Ostavica — заявка: ${data.name || '—'}` };
+        // If the contact is an email, let Formspree set it as reply-to.
+        const contact = (data.contact || '').trim();
+        if (/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(contact)) payload.email = contact;
         const res = await fetch(ENDPOINT, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-          body: JSON.stringify(data),
+          body: JSON.stringify(payload),
         });
         if (!res.ok) throw new Error(`Request failed: ${res.status}`);
+      } else {
+        // No backend configured → open the visitor's mail client, prefilled to LEAD_EMAIL.
+        const mailto = buildMailto(data);
+        console.log('[Ostavica] Lead → opening mail client:', mailto);
+        window.location.href = mailto;
+        successMsg = MESSAGES.successMail;
       }
-      setStatus(MESSAGES.success, 'ok');
+      setStatus(successMsg, 'ok');
       form.reset();
     } catch (err) {
       console.error('[Ostavica] Lead submit failed:', err);
@@ -281,7 +354,9 @@ const msg = {
   });
 </script>
 
-<script is:inline define:vars={{ messages: msg }}>
-  // Hand the localized status strings to the module script via a data attribute.
-  document.getElementById('reserve-form').dataset.messages = JSON.stringify(messages);
+<script is:inline define:vars={{ messages: msg, leadEmail: LEAD_EMAIL }}>
+  // Hand the localized strings + lead email to the module script via data attributes.
+  const rf = document.getElementById('reserve-form');
+  rf.dataset.messages = JSON.stringify(messages);
+  rf.dataset.leadEmail = leadEmail;
 </script>

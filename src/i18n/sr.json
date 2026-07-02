@@ -148,8 +148,9 @@
   },
   "about": {
     "kicker": "O nama",
+    "sectionTitle": "O nama i lokacija ostave",
     "h2": "Nije bezlično skladište",
-    "text": "Ja sam [Ime]. I sam sam se doselio u Novi Sad i znam kako je kad stvarima nema mesta, a nositi ih na periferiju nije opcija. Ostavica nije anoniman hangar — dođi, upoznaćemo se i pokazaću ti prostor pre rezervacije. Ugovor ostaje kod tebe."
+    "text": "Ja sam Ilja. I sam sam se doselio u Novi Sad i znam kako je kad stvarima nema mesta, a nositi ih na periferiju nije opcija. Ostavica nije anoniman hangar — dođi, upoznaćemo se i pokazaću ti prostor pre rezervacije. Ugovor ostaje kod tebe."
   },
   "faq": {
     "items": [
@@ -206,11 +207,14 @@
       ],
       "contact": "Kontakt (WhatsApp / Telegram / email)",
       "submit": "Pošalji upit",
-      "micro": "Bez obaveze."
+      "micro": "Bez obaveze.",
+      "callNote": "Radije da pozovete?"
     }
   },
   "footer": {
     "location": "Podbara, Novi Sad",
+    "phoneLabel": "Telefon",
+    "phone": "+381 67 775 0165",
     "tagline": "Tvoj prostor. Na sigurnom.",
     "rights": "© 2026 Ostavica"
   }

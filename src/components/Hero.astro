@@ -127,11 +127,17 @@ const heroAlt = {
     .hero {
       padding-top: clamp(40px, 6vw, 64px);
     }
+    /* Same 4-column grid + gap as the trust bar below, so the image's left edge
+       lines up exactly with the third column. */
     .hero-grid {
-      grid-template-columns: 0.92fr 1.08fr; /* image column is the larger one */
-      gap: clamp(36px, 5vw, 64px);
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+    .hero-copy {
+      grid-column: 1 / 3;
     }
     .hero-media {
+      grid-column: 3 / 5;
       order: 0; /* back to the right on desktop */
     }
     .hero-img {

@@ -1,7 +1,10 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none">
-  <path d="M5 44V20.5L24 6l19 14.5V44" stroke="#6FBE3F" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M11 22.5h9v9h-9z" stroke="#6FBE3F" stroke-width="2.6" stroke-linejoin="round"/>
-  <path d="M11 25.5h9M11 28.5h9" stroke="#6FBE3F" stroke-width="2.2" stroke-linecap="round"/>
-  <path d="M24 30l7 4v8l-7 4-7-4v-8l7-4z" stroke="#6FBE3F" stroke-width="2.6" stroke-linejoin="round"/>
-  <path d="M17 34l7 4 7-4M24 38v8" stroke="#6FBE3F" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <g fill="#5cc419">
+    <!-- Roof (same 8:15 slope as the box top) -->
+    <path d="M11 22.2 L32 11 L53 22.2" fill="none" stroke="#5cc419" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+    <!-- Box: three faces with gaps between them -->
+    <path d="M32 30.72 L45.65 38 L32 45.28 L18.35 38 Z"/>
+    <path d="M17.68 38.86 L31.33 46.14 L31.33 56.15 L17.68 48.87 Z"/>
+    <path d="M46.33 38.86 L32.68 46.14 L32.68 56.15 L46.33 48.87 Z"/>
+  </g>
 </svg>

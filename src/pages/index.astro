@@ -1,4 +1,38 @@
 ---
-import Landing from '../components/Landing.astro';
+// Language-detecting entry point. Picks the visitor's best-match locale and
+// redirects there — a previously chosen language wins, then the browser
+// language (ru → /ru/, en → /en/), otherwise Serbian (default). Static page
+// with a client-side redirect (+ no-JS fallback to Serbian).
 ---
-<Landing lang="ru" />
+<!doctype html>
+<html lang="sr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <title>Ostavica</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <script is:inline>
+      (function () {
+        var map = { ru: '/ru/', en: '/en/', sr: '/rs/' };
+        var target = null;
+        try {
+          var saved = localStorage.getItem('ostavica-lang');
+          if (saved && map[saved]) target = map[saved];
+        } catch (e) {}
+        if (!target) {
+          var langs = navigator.languages || [navigator.language || ''];
+          for (var i = 0; i < langs.length; i++) {
+            var c = (langs[i] || '').slice(0, 2).toLowerCase();
+            if (map[c]) { target = map[c]; break; }
+          }
+        }
+        location.replace(target || '/rs/'); // default: Serbian
+      })();
+    </script>
+    <noscript><meta http-equiv="refresh" content="0; url=/rs/" /></noscript>
+  </head>
+  <body>
+    <noscript><a href="/rs/">Ostavica — Novi Sad</a></noscript>
+  </body>
+</html>

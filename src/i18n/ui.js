@@ -2,12 +2,12 @@ import ru from './ru.json';
 import en from './en.json';
 import sr from './sr.json';
 
-/** All shipped locales. `ru` is the default and is served at "/". */
-export const languages = /** @type {const} */ (['ru', 'en', 'sr']);
-export const defaultLang = 'ru';
+/** Shipped locales, in switcher/display order (SR · RU · EN). Serbian is default. */
+export const languages = /** @type {const} */ (['sr', 'ru', 'en']);
+export const defaultLang = 'sr';
 
 /** Human labels for the language switcher. */
-export const langLabels = { ru: 'RU', sr: 'SR', en: 'EN' };
+export const langLabels = { sr: 'SR', ru: 'RU', en: 'EN' };
 
 const dictionaries = { ru, en, sr };
 
@@ -25,7 +25,10 @@ export function useTranslations(lang) {
   };
 }
 
-/** The home path for a locale: "/" for the default, "/{lang}/" otherwise. */
+/** URL segment per locale — Serbian (code "sr") lives at /rs/. */
+const pathByLang = { ru: 'ru', en: 'en', sr: 'rs' };
+
+/** The home path for a locale, e.g. "/ru/", "/en/", "/rs/". */
 export function localizedPath(lang) {
-  return lang === defaultLang ? '/' : `/${lang}/`;
+  return `/${pathByLang[lang] ?? lang}/`;
 }

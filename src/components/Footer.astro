@@ -14,6 +14,7 @@ const tel = `tel:${phone.replace(/\s+/g, '')}`;
       <Brand />
       <p class="footer-tag">{t('footer.tagline')}</p>
       <p class="footer-rights">{t('footer.rights')}</p>
+      <a class="footer-privacy" href={`/privacy-${lang}.pdf`} target="_blank" rel="noopener">{t('legal.privacy')}</a>
     </div>
 
     <div class="footer-meta">
@@ -71,6 +72,17 @@ const tel = `tel:${phone.replace(/\s+/g, '')}`;
     color: var(--muted);
     font-size: 0.85rem;
     margin-top: 8px;
+  }
+  .footer-privacy {
+    display: inline-block;
+    margin-top: 6px;
+    font-size: 0.85rem;
+    color: var(--green-dark);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+  .footer-privacy:hover {
+    color: var(--green);
   }
   .footer-lang {
     flex-wrap: wrap;

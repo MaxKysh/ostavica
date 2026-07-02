@@ -12,12 +12,23 @@ const heroAlt = {
   sr: 'Svetao hodnik mini skladišta Ostavica sa belim boksovima i zelenim brojevima na vratima',
   en: 'Bright corridor of the Ostavica storage facility with white units and green door numbers',
 }[lang];
+
+// Force a line break after the em dash in the hero title (all three locales use " — ").
+const h1 = t('hero.h1');
+const [h1before, ...h1afterParts] = h1.split(' — ');
+const h1after = h1afterParts.join(' — ');
 ---
 <section class="hero">
   <div class="container hero-grid">
     <div class="hero-copy reveal">
       <p class="hero-eyebrow">{t('hero.eyebrow')}</p>
-      <h1 class="hero-h1">{t('hero.h1')}</h1>
+      <h1 class="hero-h1">
+        {h1after ? (
+          <Fragment>{h1before} —<br />{h1after}</Fragment>
+        ) : (
+          h1
+        )}
+      </h1>
       <p class="hero-sub">{t('hero.sub')}</p>
 
       <p class="hero-pin">{t('hero.pricePin')}</p>
@@ -52,7 +63,7 @@ const heroAlt = {
 
 <style>
   .hero {
-    padding-top: clamp(28px, 6vw, 56px);
+    padding-top: 14px;
     padding-bottom: var(--section-y);
   }
   .hero-grid {

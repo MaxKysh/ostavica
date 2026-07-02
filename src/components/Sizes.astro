@@ -65,19 +65,31 @@ const altFor = (size) =>
 </section>
 
 <style>
+  /* Mobile: swipeable carousel with the neighbouring cards peeking on both sides */
   .sizes-grid {
     list-style: none;
-    padding: 0;
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 16px;
-    align-items: start;
+    margin: 0;
+    display: flex;
+    gap: 14px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    /* bleed to the viewport edges so cards can peek past the container padding */
+    margin-inline: calc(-1 * var(--pad));
+    padding-inline: var(--pad);
+    scroll-padding-inline: var(--pad);
+  }
+  .sizes-grid::-webkit-scrollbar {
+    display: none;
   }
   .size-card {
     position: relative;
     overflow: hidden;
     display: flex;
     flex-direction: column;
+    flex: 0 0 80%;
+    scroll-snap-align: center;
   }
   .size-card.popular {
     background: var(--green-soft);
@@ -150,13 +162,34 @@ const altFor = (size) =>
   }
 
   @media (min-width: 760px) {
+    /* Desktop: back to a static 3-column grid (no carousel) */
     .sizes-grid {
+      display: grid;
       grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      overflow: visible;
+      margin-inline: 0;
+      padding-inline: 0;
+      align-items: start;
+    }
+    .size-card {
+      flex: initial;
     }
   }
 </style>
 
 <script>
+  // On mobile, start the carousel centred on the popular card so both neighbours peek.
+  const grid = document.querySelector('.sizes-grid');
+  const popular = grid?.querySelector('.size-card.popular');
+  if (grid && popular && window.matchMedia('(max-width: 759px)').matches) {
+    requestAnimationFrame(() => {
+      const g = grid.getBoundingClientRect();
+      const p = popular.getBoundingClientRect();
+      grid.scrollLeft += p.left - g.left - (grid.clientWidth - popular.clientWidth) / 2;
+    });
+  }
+
   // "Choose" → scroll to form and preselect the size in the dropdown.
   document.querySelectorAll('[data-choose-size]').forEach((btn) => {
     btn.addEventListener('click', () => {

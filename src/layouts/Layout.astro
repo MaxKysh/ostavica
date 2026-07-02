@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
 import { languages, localizedPath, useTranslations } from '../i18n/ui.js';
+import CookieConsent from '../components/CookieConsent.astro';
 
 const { lang } = Astro.props;
 const t = useTranslations(lang);
@@ -13,8 +14,38 @@ const alternates = languages.map((l) => ({
 }));
 const canonical = new URL(localizedPath(lang), site).href;
 
-// TODO: replace with a real, per-language OG image (1200×630) before launch.
-const ogImage = new URL('/og-default.png', site).href;
+// Per-language social share image (1200×630).
+const ogImage = new URL(`/og-${lang}.jpg`, site).href;
+
+// Facebook/OG locale codes + alternates for the other languages.
+const ogLocaleByLang = { ru: 'ru_RU', en: 'en_US', sr: 'sr_RS' };
+const ogLocale = ogLocaleByLang[lang];
+const ogLocaleAlternates = languages.filter((l) => l !== lang).map((l) => ogLocaleByLang[l]);
+
+// LocalBusiness (SelfStorage) structured data — helps local/brand search.
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'SelfStorage',
+  name: 'Ostavica',
+  description: t('meta.description'),
+  url: canonical,
+  image: ogImage,
+  logo: new URL('/favicon.svg', site).href,
+  telephone: '+381677750165',
+  priceRange: '€45–€75',
+  currenciesAccepted: 'EUR',
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: 'Đorđa Rajkovića 15',
+    addressLocality: 'Novi Sad',
+    postalCode: '21000',
+    addressCountry: 'RS',
+  },
+  geo: { '@type': 'GeoCoordinates', latitude: 45.2638907, longitude: 19.8490506 },
+  areaServed: { '@type': 'City', name: 'Novi Sad' },
+  availableLanguage: ['ru', 'sr', 'en'],
+  sameAs: languages.map((l) => new URL(localizedPath(l), site).href),
+};
 
 // Yandex.Metrika — loaded only in production builds so local/dev visits
 // don't pollute the stats. Change the counter id here if it ever changes.
@@ -26,9 +57,11 @@ const ymScript = `(function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a|
 <html lang={lang}>
   <head>
     <!-- Mark JS as available before paint so reveal-on-scroll only hides content
-         when JS can reveal it (no-JS users see everything). -->
-    <script is:inline>
+         when JS can reveal it (no-JS users see everything). Also remember the
+         current language so "/" can re-open it next time. -->
+    <script is:inline define:vars={{ lang }}>
       document.documentElement.classList.add('js');
+      try { localStorage.setItem('ostavica-lang', lang); } catch (e) {}
     </script>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -36,38 +69,86 @@ const ymScript = `(function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a|
 
     <title>{t('meta.title')}</title>
     <meta name="description" content={t('meta.description')} />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
     <meta name="theme-color" content="#6fbe3f" />
+    <meta name="apple-mobile-web-app-title" content="Ostavica" />
     <meta name="yandex-verification" content="364e649a8d4d6ddd" />
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="canonical" href={canonical} />
+    <link rel="sitemap" href="/sitemap-index.xml" />
     {alternates.map((a) => (
       <link rel="alternate" hreflang={a.lang} href={a.href} />
     ))}
     <link rel="alternate" hreflang="x-default" href={alternates[0].href} />
 
-    <!-- Open Graph / Twitter -->
+    <!-- Open Graph -->
     <meta property="og:type" content="website" />
-    <meta property="og:locale" content={lang} />
     <meta property="og:site_name" content="Ostavica" />
+    <meta property="og:locale" content={ogLocale} />
+    {ogLocaleAlternates.map((l) => (
+      <meta property="og:locale:alternate" content={l} />
+    ))}
     <meta property="og:title" content={t('meta.title')} />
     <meta property="og:description" content={t('meta.description')} />
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={ogImage} />
-    <meta name="twitter:card" content="summary_large_image" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={t('meta.title')} />
 
-    {isProd && (
-      <!-- Yandex.Metrika counter -->
-      <script type="text/javascript" is:inline set:html={ymScript} />
-    )}
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={t('meta.title')} />
+    <meta name="twitter:description" content={t('meta.description')} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <!-- Structured data -->
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(jsonLd)} />
   </head>
   <body>
-    {isProd && (
-      <noscript>
-        <div><img src={`https://mc.yandex.ru/watch/${YM_ID}`} style="position:absolute; left:-9999px;" alt="" /></div>
-      </noscript>
-    )}
     <slot />
+
+    <CookieConsent lang={lang} />
+
+    <!-- Consent-gated Yandex.Metrika: loads only after the visitor accepts.
+         Returning visitors who already accepted get it loaded immediately. -->
+    <script is:inline define:vars={{ ymEnabled: isProd, ymScript }}>
+      (function () {
+        var KEY = 'ostavica-cookie-consent';
+        var banner = document.getElementById('cookie-banner');
+        function loadMetrika() {
+          if (!ymEnabled || window.__ymLoaded) return;
+          window.__ymLoaded = 1;
+          var s = document.createElement('script');
+          s.type = 'text/javascript';
+          s.text = ymScript;
+          document.head.appendChild(s);
+        }
+        var consent = null;
+        try {
+          consent = localStorage.getItem(KEY);
+        } catch (e) {}
+        if (consent === 'granted') {
+          loadMetrika();
+        } else if (consent !== 'denied' && banner) {
+          banner.hidden = false;
+        }
+        if (banner) {
+          banner.addEventListener('click', function (e) {
+            var btn = e.target.closest('[data-consent]');
+            if (!btn) return;
+            var accepted = btn.getAttribute('data-consent') === 'accept';
+            try {
+              localStorage.setItem(KEY, accepted ? 'granted' : 'denied');
+            } catch (e) {}
+            if (accepted) loadMetrika();
+            banner.hidden = true;
+          });
+        }
+      })();
+    </script>
 
     <script>
       // ---- Sticky header background on scroll ----

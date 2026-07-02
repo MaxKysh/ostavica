@@ -1,0 +1,68 @@
+---
+import { useTranslations } from '../i18n/ui.js';
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const privacyHref = `/privacy-${lang}.pdf`;
+---
+<div id="cookie-banner" class="cookie-banner" role="dialog" aria-label="Cookies" hidden>
+  <p class="cookie-text">
+    {t('cookies.text')}{' '}
+    <a href={privacyHref} target="_blank" rel="noopener">{t('cookies.more')}</a>
+  </p>
+  <div class="cookie-actions">
+    <button type="button" class="cookie-btn cookie-accept" data-consent="accept">{t('cookies.accept')}</button>
+  </div>
+</div>
+
+<style>
+  /* Full-width bar pinned to the very top — unmissable, near the desktop menu,
+     and clear of the mobile menu button at the bottom-right. */
+  .cookie-banner {
+    position: fixed;
+    z-index: 80;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: var(--green-deep);
+    color: #fff;
+    padding: 12px clamp(16px, 4vw, 28px);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 10px 20px;
+  }
+  .cookie-text {
+    font-size: 0.9rem;
+    line-height: 1.45;
+    color: #e6f0dc;
+    max-width: 78ch;
+  }
+  .cookie-text a {
+    color: #fff;
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    white-space: nowrap;
+  }
+  .cookie-actions {
+    flex: none;
+  }
+  .cookie-btn {
+    border: 0;
+    border-radius: 999px;
+    padding: 9px 22px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background-color 0.18s ease, color 0.18s ease;
+  }
+  .cookie-accept {
+    background: #fff;
+    color: var(--green-dark);
+  }
+  .cookie-accept:hover {
+    background: #eef6e4;
+  }
+</style>

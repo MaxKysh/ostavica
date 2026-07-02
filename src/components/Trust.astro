@@ -13,7 +13,7 @@ const icons = ['walk', 'shieldHeat', 'calendar', 'globe'];
       {items.map((item, i) => (
         <li class="trust-item card reveal" style={`transition-delay:${i * 70}ms`}>
           <span class="trust-icon"><Icon name={icons[i]} size={22} /></span>
-          <h3 class="trust-title">{item.title}</h3>
+          <p class="trust-title">{item.title}</p>
           <p class="trust-text">{item.text}</p>
         </li>
       ))}
@@ -47,7 +47,10 @@ const icons = ['walk', 'shieldHeat', 'calendar', 'globe'];
     margin-bottom: 22px;
   }
   .trust-title {
+    font-family: var(--font-head);
+    font-weight: 500;
     font-size: 1.05rem;
+    color: var(--ink);
     margin-bottom: 11px;
   }
   .trust-text {

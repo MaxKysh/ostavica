@@ -217,5 +217,14 @@
     "phone": "+381 67 775 0165",
     "tagline": "Tvoj prostor. Na sigurnom.",
     "rights": "© 2026 Ostavica"
+  },
+  "legal": {
+    "privacy": "Privacy policy"
+  },
+  "cookies": {
+    "text": "We use cookies and Yandex.Metrica to understand how you use the site. Analytics runs only with your consent.",
+    "accept": "Accept",
+    "decline": "Only necessary",
+    "more": "Learn more"
   }
 }
